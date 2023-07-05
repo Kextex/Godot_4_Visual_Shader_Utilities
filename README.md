@@ -5,5 +5,6 @@
 | --- | --- |
 | **addons** | Contains custom visual shader nodes. |
 | **levels** | Stores generic levels. |
+| **shaders** | Stores common shaders/materials. |
 | **textures** | Stores common textures. |
 
