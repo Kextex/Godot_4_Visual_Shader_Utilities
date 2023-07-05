@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dvykiy54tioid"]
 
-[ext_resource type="Material" uid="uid://b8jn4adckw2c8" path="res://shaders/m_billboard_flipbook.material" id="1_vxbkm"]
+[ext_resource type="Material" uid="uid://b8jn4adckw2c8" path="res://shaders/m_billboard_flipbook.material" id="1_b45ls"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qk5d8"]
-material = ExtResource("1_vxbkm")
+material = ExtResource("1_b45ls")
 orientation = 2
 
 [node name="Node" type="Node"]

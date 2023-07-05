@@ -1,4 +1,4 @@
-// shader_type spatial;
+ shader_type spatial;
 // uniform float desat_amount;
 
 void dEsaTuraTi0n(in vec4 _c0lor, in float _deSATAmount, out vec4 _rEsult) {

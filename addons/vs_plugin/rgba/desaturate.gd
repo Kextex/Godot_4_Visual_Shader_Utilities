@@ -51,7 +51,7 @@ func _get_output_port_type(port) -> PortType:
 
 func _get_global_code(mode) -> String:
 	var code = preload("desaturate.gdshader").code
-	# code = code.replace("shader_type spatial;\n", "")
+	code = code.replace("shader_type spatial;\n", "")
 	return code
 	
 func _get_code(input_vars: Array[String], output_vars: Array[String], mode: Shader.Mode, type: VisualShader.Type) -> String:
