@@ -1,0 +1,116 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://b21i33lcshyam"]
+
+[ext_resource type="Script" path="res://addons/vs_plugin/utility/flipbook.gd" id="1_yhjey"]
+
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_aves6"]
+initialized = true
+script = ExtResource("1_yhjey")
+
+[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_4mp7w"]
+keep_scale = true
+
+[sub_resource type="VisualShaderNodeTransformVecMult" id="VisualShaderNodeTransformVecMult_40bdc"]
+operator = 1
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_h5xjn"]
+input_name = "vertex"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
+
+
+
+// Flipbook
+// shader_type spatial;
+// render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
+
+uniform float speed = 2.5;
+uniform vec2 scale = vec2(1.0, 1.0);
+uniform float column = 3;
+uniform float row = 3;
+uniform sampler2D flipbookTex : source_color;
+
+void fLiPBook(vec2 _IUv, float _tIme, out vec4 _rEsult) {
+	// Calculate the frame index based on the current time and speed
+	float frameIndex = floor(_tIme * speed);
+
+	// Calculate the current row and column of the frame
+	float currentRow = floor(frameIndex / column);
+	float currentColumn = floor(mod(frameIndex, column));
+
+	// Calculate the frame offset in UV coordinates
+	vec2 frameOffset = vec2(currentColumn, currentRow);
+
+	// Scale and position the UV coordinates based on the frame index and scale uniform
+	vec2 uv = (_IUv * scale) + frameOffset;
+
+	// Calculate the texture coordinates within the specified row and column
+	uv.x = fract(uv.x / column);
+	uv.y = fract(uv.y / row);
+
+	// Sample the texture at the calculated UV coordinates
+	vec4 textureColor = texture(flipbookTex, uv);
+	// return textureColor;
+    _rEsult = textureColor;
+}
+
+// void fragment() {
+
+// 	ALBEDO = fLiPBook(UV, TIME).xyz;
+// }
+
+
+void vertex() {
+	mat4 n_out2p0;
+// GetBillboardMatrix:2
+	{
+		mat4 __mvm = VIEW_MATRIX * mat4(INV_VIEW_MATRIX[0], INV_VIEW_MATRIX[1], INV_VIEW_MATRIX[2], MODEL_MATRIX[3]);
+		__mvm = __mvm * mat4(vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0), vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0), vec4(0.0, 0.0, 0.0, 1.0));
+		n_out2p0 = __mvm;
+	}
+
+
+// Input:4
+	vec3 n_out4p0 = VERTEX;
+
+
+// TransformVectorMult:3
+	vec3 n_out3p0 = (vec4(n_out4p0, 1.0) * n_out2p0).xyz;
+
+
+// Output:0
+	VERTEX = n_out3p0;
+	MODELVIEW_MATRIX = n_out2p0;
+
+
+}
+
+void fragment() {
+	vec4 n_out2p0;
+// Flipbook:2
+	{
+		fLiPBook(UV, TIME, n_out2p0);
+	}
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-169.107, 120.671)
+modes/cull = 2
+flags/unshaded = true
+nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_4mp7w")
+nodes/vertex/2/position = Vector2(-460, 40)
+nodes/vertex/3/node = SubResource("VisualShaderNodeTransformVecMult_40bdc")
+nodes/vertex/3/position = Vector2(20, 100)
+nodes/vertex/4/node = SubResource("VisualShaderNodeInput_h5xjn")
+nodes/vertex/4/position = Vector2(-500, 260)
+nodes/vertex/connections = PackedInt32Array(4, 0, 3, 1, 2, 0, 3, 0, 3, 0, 0, 0, 2, 0, 0, 10)
+nodes/fragment/0/position = Vector2(540, 360)
+nodes/fragment/2/node = SubResource("VisualShaderNodeCustom_aves6")
+nodes/fragment/2/position = Vector2(220, 380)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0)
