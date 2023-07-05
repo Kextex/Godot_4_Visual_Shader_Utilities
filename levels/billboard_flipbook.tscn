@@ -1,19 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvykiy54tioid"]
+[gd_scene load_steps=3 format=3 uid="uid://dvykiy54tioid"]
 
-[ext_resource type="Shader" uid="uid://b21i33lcshyam" path="res://shaders/billboard_flipbook.tres" id="1_742uk"]
-[ext_resource type="Texture2D" uid="uid://c22thblmexp6y" path="res://textures/grid_3x3.png" id="2_5rktv"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y3sqt"]
-render_priority = 0
-shader = ExtResource("1_742uk")
-shader_parameter/speed = 2.5
-shader_parameter/scale = Vector2(1, 1)
-shader_parameter/column = 3.0
-shader_parameter/row = 3.0
-shader_parameter/flipbookTex = ExtResource("2_5rktv")
+[ext_resource type="Material" uid="uid://b8jn4adckw2c8" path="res://levels/m_billboard_flipbook.material" id="1_4x0kc"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qk5d8"]
-material = SubResource("ShaderMaterial_y3sqt")
+material = ExtResource("1_4x0kc")
 orientation = 2
 
 [node name="Node" type="Node"]
