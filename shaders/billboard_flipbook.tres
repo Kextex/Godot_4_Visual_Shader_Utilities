@@ -16,7 +16,6 @@ render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specul
 
 
 // Flipbook
-// shader_type spatial;
 // render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
 
 uniform float speed = 2.5;
@@ -85,7 +84,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-203.333, 192)
+graph_offset = Vector2(-447.333, -148)
 modes/cull = 2
 flags/unshaded = true
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_4mp7w")
