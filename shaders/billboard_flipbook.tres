@@ -1,57 +1,80 @@
-[gd_resource type="VisualShader" load_steps=4 format=3 uid="uid://b21i33lcshyam"]
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://b21i33lcshyam"]
 
-[ext_resource type="Script" path="res://addons/vs_plugin/utility/flipbook.gd" id="1_yhjey"]
+[ext_resource type="Script" path="res://addons/vs_plugin/utility/flipbook.gd" id="1_ys5y5"]
 
-[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_aves6"]
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_qcb4k"]
+parameter_name = "TexFlipbook"
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_2cl8b"]
+source = 5
+
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_cosj8"]
+default_input_values = [1, 2.5]
 initialized = true
-script = ExtResource("1_yhjey")
+script = ExtResource("1_ys5y5")
 
-[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_4mp7w"]
+[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_j2qpc"]
 keep_scale = true
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
 
+uniform sampler2D TexFlipbook : source_color;
 
 
 // Flipbook
 // render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
 
-uniform float speed = 2.5;
-uniform vec2 scale = vec2(1.0, 1.0);
-uniform float column = 3;
-uniform float row = 3;
-uniform sampler2D flipbookTex : source_color;
+uniform bool _invertX = false;
+uniform bool _invertY = false;
 
-void fLiPBook(vec2 _IUv, float _tIme, out vec4 _rEsult) {
+uniform bool _limitFrames = false;
+uniform float _maxFrames = 0.0;
+
+uniform float _numColumns = 3.0;
+uniform float _numRows = 3.0;
+// uniform sampler2D flipbookTex : source_color;
+
+void fLiPBook(vec2 _IUv, float _pLaybackRate, float _tIme, out vec2 _rEsultuv) {
 	// Calculate the frame index based on the current time and speed
-	float frameIndex = floor(_tIme * speed);
+	float frameIndex;
+	if (!_limitFrames) {
+		frameIndex = floor(_tIme * _pLaybackRate);
+	}
+	else {
+		frameIndex = floor(mod(_tIme * _pLaybackRate, _maxFrames));
+	}
 
 	// Calculate the current row and column of the frame
-	float currentRow = floor(frameIndex / column);
-	float currentColumn = floor(mod(frameIndex, column));
+	float currentRow = floor(frameIndex / _numColumns);
+	float currentColumn = floor(mod(frameIndex, _numColumns));
 
 	// Calculate the frame offset in UV coordinates
 	vec2 frameOffset = vec2(currentColumn, currentRow);
 
-	// Scale and position the UV coordinates based on the frame index and scale uniform
-	vec2 uv = (_IUv * scale) + frameOffset;
+	// Position the UV coordinates based on the frame index
+	vec2 uv = _IUv + frameOffset;
 
 	// Calculate the texture coordinates within the specified row and column
-	uv.x = fract(uv.x / column);
-	uv.y = fract(uv.y / row);
+	uv.x = fract(uv.x / _numColumns);
+	uv.y = fract(uv.y / _numRows);
 
-	// Sample the texture at the calculated UV coordinates
-	vec4 textureColor = texture(flipbookTex, uv);
-	// return textureColor;
-    _rEsult = textureColor;
+	// Apply inversion if enabled
+	if (_invertX) {
+		uv.x = 1.0 - uv.x;
+	}
+	if (_invertY) {
+		uv.y = 1.0 - uv.y;
+	}
+
+   _rEsultuv = uv;
 }
 
-// void fragment() {
-
-// 	ALBEDO = fLiPBook(UV, TIME).xyz;
-// }
+//  void fragment() {
+//  	ALBEDO = textureLod(flipbookTex, fLiPBook(UV, TIME), 0).xyz ;
+//  }
 
 
 void vertex() {
@@ -71,25 +94,34 @@ void vertex() {
 }
 
 void fragment() {
-	vec4 n_out2p0;
-// Flipbook:2
+	vec2 n_out5p0;
+// Flipbook:5
+	float n_in5p1 = 2.50000;
 	{
-		fLiPBook(UV, TIME, n_out2p0);
+		fLiPBook(UV, n_in5p1, TIME, n_out5p0);
 	}
 
 
+	vec4 n_out4p0;
+// Texture2D:4
+	n_out4p0 = texture(TexFlipbook, n_out5p0);
+
+
 // Output:0
-	ALBEDO = vec3(n_out2p0.xyz);
+	ALBEDO = vec3(n_out4p0.xyz);
 
 
 }
 "
-modes/cull = 2
 flags/unshaded = true
-nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_4mp7w")
-nodes/vertex/2/position = Vector2(-140, 420)
+nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_j2qpc")
+nodes/vertex/2/position = Vector2(-120, 380)
 nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
-nodes/fragment/0/position = Vector2(540, 360)
-nodes/fragment/2/node = SubResource("VisualShaderNodeCustom_aves6")
-nodes/fragment/2/position = Vector2(280, 360)
-nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0)
+nodes/fragment/0/position = Vector2(320, 320)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_qcb4k")
+nodes/fragment/3/position = Vector2(-580, 500)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_2cl8b")
+nodes/fragment/4/position = Vector2(-20, 300)
+nodes/fragment/5/node = SubResource("VisualShaderNodeCustom_cosj8")
+nodes/fragment/5/position = Vector2(-400, 160)
+nodes/fragment/connections = PackedInt32Array(3, 0, 4, 2, 4, 0, 0, 0, 5, 0, 4, 0)
