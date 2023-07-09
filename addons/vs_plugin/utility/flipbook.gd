@@ -59,7 +59,7 @@ func _get_global_code(mode) -> String:
 func _get_code(input_vars: Array[String], output_vars: Array[String], mode: Shader.Mode, type: VisualShader.Type) -> String:
 	# Default values
 	var uv: String = "UV"
-	var rate: String = "2.5"
+	var rate: String = "1"
 	
 	if input_vars[0]:
 		uv = input_vars[0]

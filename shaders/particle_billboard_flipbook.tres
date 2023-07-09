@@ -1,25 +1,29 @@
-[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://b21i33lcshyam"]
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://crx52mdtt63ua"]
 
-[ext_resource type="Script" path="res://addons/vs_plugin/utility/flipbook.gd" id="1_ys5y5"]
+[ext_resource type="Script" path="res://addons/vs_plugin/utility/flipbook.gd" id="1_cs2w2"]
 
-[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_qcb4k"]
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_j4rjd"]
 parameter_name = "TexFlipbook"
 texture_type = 1
 
-[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_2cl8b"]
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_3tsqf"]
 source = 5
 
-[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_j2qpc"]
+[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_4372k"]
 keep_scale = true
 
-[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_lafus"]
-default_input_values = [1, 0.5]
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_hmvkv"]
+default_input_values = [1, 1.0]
 initialized = true
-script = ExtResource("1_ys5y5")
+script = ExtResource("1_cs2w2")
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_jiabb"]
+expanded_output_ports = [0]
+input_name = "instance_custom"
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, shadows_disabled;
 
 uniform sampler2D TexFlipbook : source_color;
 
@@ -91,11 +95,15 @@ void fLiPBook(vec2 _i_uv, float _playback_rate, float _time, out vec2 _result_uv
 
 
 void vertex() {
+// Input:4
+	vec4 n_out4p0 = INSTANCE_CUSTOM;
+	float n_out4p3 = n_out4p0.b;
+
+
 	vec2 n_out3p0;
 // Flipbook:3
-	float n_in3p1 = 0.50000;
 	{
-		fLiPBook(UV, n_in3p1, TIME, n_out3p0);
+		fLiPBook(UV, n_out4p3, TIME, n_out3p0);
 	}
 
 
@@ -127,16 +135,18 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-875.337, -233.796)
-flags/unshaded = true
-nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_j2qpc")
+graph_offset = Vector2(-645.333, -162)
+flags/shadows_disabled = true
+nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_4372k")
 nodes/vertex/2/position = Vector2(-160, 440)
-nodes/vertex/3/node = SubResource("VisualShaderNodeCustom_lafus")
+nodes/vertex/3/node = SubResource("VisualShaderNodeCustom_hmvkv")
 nodes/vertex/3/position = Vector2(-160, -80)
-nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10, 3, 0, 0, 4)
+nodes/vertex/4/node = SubResource("VisualShaderNodeInput_jiabb")
+nodes/vertex/4/position = Vector2(-620, 80)
+nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10, 3, 0, 0, 4, 4, 3, 3, 1)
 nodes/fragment/0/position = Vector2(320, 320)
-nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_qcb4k")
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_j4rjd")
 nodes/fragment/3/position = Vector2(-660, 60)
-nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_2cl8b")
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_3tsqf")
 nodes/fragment/4/position = Vector2(-60, 200)
 nodes/fragment/connections = PackedInt32Array(3, 0, 4, 2, 4, 0, 0, 0)

@@ -1,9 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvykiy54tioid"]
+[gd_scene load_steps=6 format=3 uid="uid://dvykiy54tioid"]
 
 [ext_resource type="Material" uid="uid://b8jn4adckw2c8" path="res://shaders/m_billboard_flipbook.material" id="1_vpaq8"]
+[ext_resource type="Material" uid="uid://nlqbxcthkj72" path="res://shaders/m_p_billboard_flipbook.material" id="2_qyn1a"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qk5d8"]
 material = ExtResource("1_vpaq8")
+orientation = 2
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_liykb"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, -2, 0)
+anim_speed_min = 4.3
+anim_speed_max = 4.3
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uph8u"]
+material = ExtResource("2_qyn1a")
 orientation = 2
 
 [node name="Node" type="Node"]
@@ -11,3 +23,11 @@ orientation = 2
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_qk5d8")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24475, 0, 0)
+lifetime = 1.96
+speed_scale = 0.15
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_liykb")
+draw_pass_1 = SubResource("PlaneMesh_uph8u")
