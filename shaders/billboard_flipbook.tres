@@ -13,7 +13,7 @@ source = 5
 keep_scale = true
 
 [sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_jv446"]
-default_input_values = [1, 0.5]
+default_input_values = [1, 0.4]
 initialized = true
 script = ExtResource("1_ys5y5")
 
@@ -92,7 +92,7 @@ void fLiPBook(vec2 _i_uv, float _playback_rate, float _instan_custom_z, float _t
 void vertex() {
 	vec2 n_out3p0;
 // Flipbook:3
-	float n_in3p1 = 0.50000;
+	float n_in3p1 = 0.40000;
 	{
 		fLiPBook(UV, n_in3p1, INSTANCE_CUSTOM.z, TIME, n_out3p0);
 	}
@@ -126,11 +126,12 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-940.746, -146.695)
 flags/unshaded = true
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_j2qpc")
 nodes/vertex/2/position = Vector2(-160, 440)
 nodes/vertex/3/node = SubResource("VisualShaderNodeCustom_jv446")
-nodes/vertex/3/position = Vector2(-253.592, 1.67673)
+nodes/vertex/3/position = Vector2(-60, 200)
 nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10, 3, 0, 0, 4)
 nodes/fragment/0/position = Vector2(320, 320)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_qcb4k")
