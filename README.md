@@ -10,8 +10,11 @@
 
 ## Contents:
 ---
-
+ 
 - ### Desaturate
+  **Preview:**  
+  <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/ce7bb6c4-3359-46eb-b2c3-5a2728aede3d" alt="node" width="15%" height="15%">  
+
   **Description:**  
   Make color into grayscale.
   
@@ -22,7 +25,10 @@
 
 - ### Flipbook
   **Preview:**  
-  [YT Tutorial](https://youtu.be/Ccmso1cfEIA)
+  [YT Tutorial](https://youtu.be/Ccmso1cfEIA)  
+  <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/17b5a619-355a-44fc-ac9d-c8faaa35181f" alt="node" width="15%" height="15%">  
+  <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/bdab5b70-f9cb-4da7-9159-1fe73d4ae10c" alt="para" width="30%" height="30%">
+
   
   **Description:**  
   Create flipbook animation.
