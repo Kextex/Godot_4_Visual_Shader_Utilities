@@ -59,7 +59,7 @@ func _get_global_code(mode) -> String:
 func _get_code(input_vars: Array[String], output_vars: Array[String], mode: Shader.Mode, type: VisualShader.Type) -> String:
 	# Default values
 	var uv: String = "UV"
-	var rate: String = "1"
+	var rate: String = "1.0"
 	
 	if input_vars[0]:
 		uv = input_vars[0]
@@ -67,10 +67,10 @@ func _get_code(input_vars: Array[String], output_vars: Array[String], mode: Shad
 		rate = input_vars[1]
 		
 	var params =  [uv, rate, output_vars[0]]
-	return "fLiPBook(%s, %s, TIME, %s);" % params
+	return "fLiPBook(%s, %s, INSTANCE_CUSTOM.z, TIME, %s);" % params
 	
 
 func _init():
 	# Default values for Editor
 	if not get_input_port_default_value(1):
-		set_input_port_default_value(1, 2.5)
+		set_input_port_default_value(1, 1.0)
