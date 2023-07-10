@@ -34,7 +34,7 @@
   Create flipbook animation.
   
   **Parameter:**
-  - **Speed:** Controls the playback speed.
+  - **Speed:** Controls the playback speed. It does not have any effect when "Particle Anim" is enabled. The speed and offset for animation control are determined by the "Speed" and "Offset" parameters in the ParticleProcessMaterial's Animation section.
   - **InvertX, InvertY:** Inverts the X or Y axis of the UV.
   - **Limit Frames:** Enables the playback range limitation.
   - **Max Frame:** Specifies the maximum frame when "Limit Frames" is enabled.
