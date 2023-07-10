@@ -38,6 +38,6 @@
   - **Limit Frames:** Enables the playback range limitation.
   - **Max Frame:** Specifies the maximum frame when "Limit Frames" is enabled.
   - **Anim Loop:** Determines whether to loop the animation when reaching the end of frames.
-  - **Particle Anim:** Enables the shader for particle animation.
+  - **Particle Anim:** Enables the shader for particle animation. If the material does not receive data from ParticleProcessMaterial, the animation will appear frozen.
   - **Number of Columns:** Sets the number of columns in the sprite.
-  - **Number of Rows:** Sets the number of rows in the sprite. If the material does not receive data from ParticleProcessMaterial, the animation will appear frozen.
+  - **Number of Rows:** Sets the number of rows in the sprite.
