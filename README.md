@@ -29,7 +29,6 @@
   <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/17b5a619-355a-44fc-ac9d-c8faaa35181f" alt="node" width="15%" height="15%">  
   <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/bdab5b70-f9cb-4da7-9159-1fe73d4ae10c" alt="para" width="30%" height="30%">
 
-  
   **Description:**  
   Create flipbook animation.
   
