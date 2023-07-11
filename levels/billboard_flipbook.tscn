@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dvykiy54tioid"]
+[gd_scene load_steps=20 format=3 uid="uid://dvykiy54tioid"]
 
 [ext_resource type="Material" uid="uid://b8jn4adckw2c8" path="res://shaders/m_billboard_flipbook.material" id="1_vpaq8"]
 [ext_resource type="Shader" uid="uid://b21i33lcshyam" path="res://shaders/billboard_flipbook.tres" id="2_li5tw"]
@@ -41,6 +41,22 @@ anim_offset_max = 0.5
 [sub_resource type="PlaneMesh" id="PlaneMesh_ir57w"]
 material = ExtResource("2_qyn1a")
 orientation = 2
+
+[sub_resource type="Gradient" id="Gradient_rgd24"]
+offsets = PackedFloat32Array(0.00253807, 0.238579, 0.624366, 0.992386)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d3eqb"]
+gradient = SubResource("Gradient_rgd24")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tfjk8"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, -0.5, 0)
+scale_min = 0.8
+color_ramp = SubResource("GradientTexture1D_d3eqb")
+anim_speed_min = 0.2
+anim_speed_max = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uc6jy"]
 render_priority = 0
@@ -182,10 +198,9 @@ Visual Shader"
 
 [node name="GPUParticles3D3" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24475, 6.34124, 0)
-lifetime = 1.96
-speed_scale = 0.15
+lifetime = 2.28
 transform_align = 1
-process_material = SubResource("ParticleProcessMaterial_liykb")
+process_material = SubResource("ParticleProcessMaterial_tfjk8")
 draw_pass_1 = SubResource("PlaneMesh_0e4an")
 
 [node name="Label3D" type="Label3D" parent="GPUParticles3D3"]

@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://crx52mdtt63ua"]
+[gd_resource type="VisualShader" load_steps=9 format=3 uid="uid://crx52mdtt63ua"]
 
 [ext_resource type="Script" path="res://addons/vs_plugin/utility/flipbook.gd" id="1_664mq"]
 
@@ -9,6 +9,18 @@ texture_type = 1
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_3tsqf"]
 expanded_output_ports = [0]
 source = 5
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_dbv3v"]
+expanded_output_ports = [0]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_qkif0"]
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
+op_type = 2
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_i4jcm"]
+operator = 2
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_fph7s"]
 expanded_output_ports = [0]
@@ -113,14 +125,27 @@ void fragment() {
 	float n_out4p4 = n_out4p0.a;
 
 
+// Input:5
+	vec4 n_out5p0 = COLOR;
+	float n_out5p4 = n_out5p0.a;
+
+
+// VectorOp:6
+	vec4 n_out6p0 = n_out4p0 * n_out5p0;
+
+
+// FloatOp:7
+	float n_out7p0 = n_out4p4 * n_out5p4;
+
+
 // Output:0
-	ALBEDO = vec3(n_out4p0.xyz);
-	ALPHA = n_out4p4;
+	ALBEDO = vec3(n_out6p0.xyz);
+	ALPHA = n_out7p0;
 
 
 }
 "
-graph_offset = Vector2(-769.333, -22)
+graph_offset = Vector2(-792.667, 58.6667)
 flags/shadows_disabled = true
 nodes/vertex/3/node = SubResource("VisualShaderNodeInput_fph7s")
 nodes/vertex/3/position = Vector2(-720, 240)
@@ -129,7 +154,13 @@ nodes/vertex/4/position = Vector2(-40, 100)
 nodes/vertex/connections = PackedInt32Array(4, 0, 0, 4)
 nodes/fragment/0/position = Vector2(320, 320)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_j4rjd")
-nodes/fragment/3/position = Vector2(-660, 60)
+nodes/fragment/3/position = Vector2(-1080, 40)
 nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_3tsqf")
-nodes/fragment/4/position = Vector2(-60, 200)
-nodes/fragment/connections = PackedInt32Array(3, 0, 4, 2, 4, 0, 0, 0, 4, 4, 0, 1)
+nodes/fragment/4/position = Vector2(-480, 180)
+nodes/fragment/5/node = SubResource("VisualShaderNodeInput_dbv3v")
+nodes/fragment/5/position = Vector2(-680, 660)
+nodes/fragment/6/node = SubResource("VisualShaderNodeVectorOp_qkif0")
+nodes/fragment/6/position = Vector2(-40, 340)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatOp_i4jcm")
+nodes/fragment/7/position = Vector2(-20, 660)
+nodes/fragment/connections = PackedInt32Array(3, 0, 4, 2, 4, 0, 6, 0, 5, 0, 6, 1, 6, 0, 0, 0, 5, 4, 7, 1, 4, 4, 7, 0, 7, 0, 0, 1)
