@@ -7,6 +7,7 @@ parameter_name = "TexFlipbook"
 texture_type = 1
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_2cl8b"]
+expanded_output_ports = [0]
 source = 5
 
 [sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_j2qpc"]
@@ -19,7 +20,7 @@ script = ExtResource("1_ys5y5")
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform sampler2D TexFlipbook : source_color;
 
@@ -118,16 +119,17 @@ void fragment() {
 	vec4 n_out4p0;
 // Texture2D:4
 	n_out4p0 = texture(TexFlipbook, UV);
+	float n_out4p4 = n_out4p0.a;
 
 
 // Output:0
 	ALBEDO = vec3(n_out4p0.xyz);
+	ALPHA = n_out4p4;
 
 
 }
 "
-graph_offset = Vector2(-940.746, -146.695)
-flags/unshaded = true
+graph_offset = Vector2(-952.182, 21.3796)
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_j2qpc")
 nodes/vertex/2/position = Vector2(-160, 440)
 nodes/vertex/3/node = SubResource("VisualShaderNodeCustom_jv446")
@@ -135,7 +137,7 @@ nodes/vertex/3/position = Vector2(-60, 200)
 nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10, 3, 0, 0, 4)
 nodes/fragment/0/position = Vector2(320, 320)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_qcb4k")
-nodes/fragment/3/position = Vector2(-660, 360)
+nodes/fragment/3/position = Vector2(-1120, 260)
 nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_2cl8b")
-nodes/fragment/4/position = Vector2(-60, 200)
-nodes/fragment/connections = PackedInt32Array(3, 0, 4, 2, 4, 0, 0, 0)
+nodes/fragment/4/position = Vector2(-300, 220)
+nodes/fragment/connections = PackedInt32Array(3, 0, 4, 2, 4, 0, 0, 0, 4, 4, 0, 1)

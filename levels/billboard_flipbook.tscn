@@ -1,11 +1,32 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvykiy54tioid"]
+[gd_scene load_steps=17 format=3 uid="uid://dvykiy54tioid"]
 
 [ext_resource type="Material" uid="uid://b8jn4adckw2c8" path="res://shaders/m_billboard_flipbook.material" id="1_vpaq8"]
+[ext_resource type="Shader" uid="uid://b21i33lcshyam" path="res://shaders/billboard_flipbook.tres" id="2_li5tw"]
 [ext_resource type="Material" uid="uid://nlqbxcthkj72" path="res://shaders/m_p_billboard_flipbook.material" id="2_qyn1a"]
+[ext_resource type="Texture2D" uid="uid://3akpt0kuruyx" path="res://textures/particle_sprite_smoke.png" id="3_1xbow"]
 [ext_resource type="Texture2D" uid="uid://y4adivkbblt8" path="res://textures/grid_3x4.png" id="3_f8hpv"]
+[ext_resource type="Shader" uid="uid://crx52mdtt63ua" path="res://shaders/particle_billboard_flipbook.tres" id="5_4w1o1"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qk5d8"]
 material = ExtResource("1_vpaq8")
+orientation = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xq8f1"]
+render_priority = 0
+shader = ExtResource("2_li5tw")
+shader_parameter/_invert_x = false
+shader_parameter/_invert_y = false
+shader_parameter/_limit_frames = false
+shader_parameter/_max_frames = 0.0
+shader_parameter/_anim_loop = true
+shader_parameter/_particle_anim = false
+shader_parameter/_number_of_columns = 8
+shader_parameter/_number_of_rows = 8
+shader_parameter/TexFlipbook = ExtResource("3_1xbow")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_addyq"]
+material = SubResource("ShaderMaterial_xq8f1")
+size = Vector2(5, 5)
 orientation = 2
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_liykb"]
@@ -19,6 +40,24 @@ anim_offset_max = 0.5
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ir57w"]
 material = ExtResource("2_qyn1a")
+orientation = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uc6jy"]
+render_priority = 0
+shader = ExtResource("5_4w1o1")
+shader_parameter/_invert_x = false
+shader_parameter/_invert_y = false
+shader_parameter/_limit_frames = false
+shader_parameter/_max_frames = 0.0
+shader_parameter/_anim_loop = false
+shader_parameter/_particle_anim = true
+shader_parameter/_number_of_columns = 8
+shader_parameter/_number_of_rows = 8
+shader_parameter/TexFlipbook = ExtResource("3_1xbow")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0e4an"]
+material = SubResource("ShaderMaterial_uc6jy")
+size = Vector2(5, 5)
 orientation = 2
 
 [sub_resource type="Shader" id="Shader_blbu0"]
@@ -115,6 +154,18 @@ pixel_size = 0.0155
 text = "Flipbook
 Visual Shader"
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.20105, 0)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_addyq")
+
+[node name="Label3D2" type="Label3D" parent="MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.161952, 2.92291, 0)
+pixel_size = 0.0155
+text = "Flipbook
+Visual Shader
+Smoke"
+
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24475, 0, 0)
 lifetime = 1.96
@@ -128,6 +179,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92912, 0)
 pixel_size = 0.0155
 text = "Flipbook
 Visual Shader"
+
+[node name="GPUParticles3D3" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24475, 6.34124, 0)
+lifetime = 1.96
+speed_scale = 0.15
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_liykb")
+draw_pass_1 = SubResource("PlaneMesh_0e4an")
+
+[node name="Label3D" type="Label3D" parent="GPUParticles3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92912, 0)
+pixel_size = 0.0155
+text = "Flipbook
+Visual Shader
+Smoke"
 
 [node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5415, 0, 0)

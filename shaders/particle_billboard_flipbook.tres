@@ -7,6 +7,7 @@ parameter_name = "TexFlipbook"
 texture_type = 1
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_3tsqf"]
+expanded_output_ports = [0]
 source = 5
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_fph7s"]
@@ -109,14 +110,17 @@ void fragment() {
 	vec4 n_out4p0;
 // Texture2D:4
 	n_out4p0 = texture(TexFlipbook, UV);
+	float n_out4p4 = n_out4p0.a;
 
 
 // Output:0
 	ALBEDO = vec3(n_out4p0.xyz);
+	ALPHA = n_out4p4;
 
 
 }
 "
+graph_offset = Vector2(-769.333, -22)
 flags/shadows_disabled = true
 nodes/vertex/3/node = SubResource("VisualShaderNodeInput_fph7s")
 nodes/vertex/3/position = Vector2(-720, 240)
@@ -128,4 +132,4 @@ nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_j4rjd")
 nodes/fragment/3/position = Vector2(-660, 60)
 nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_3tsqf")
 nodes/fragment/4/position = Vector2(-60, 200)
-nodes/fragment/connections = PackedInt32Array(3, 0, 4, 2, 4, 0, 0, 0)
+nodes/fragment/connections = PackedInt32Array(3, 0, 4, 2, 4, 0, 0, 0, 4, 4, 0, 1)
