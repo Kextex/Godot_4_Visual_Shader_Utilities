@@ -6,7 +6,8 @@ Godot Version Used: 4.1 stable
 | --- | --- |
 | **addons** | Contains custom visual shader nodes. |
 | **levels** | Stores generic levels. |
-| **shaders** | Stores common shaders/materials. |
+| **materials** | Stores common materials. |
+| **shaders** | Stores common shaders. |
 | **textures** | Stores common textures. |
 
 ## Contents:
