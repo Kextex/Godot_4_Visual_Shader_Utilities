@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Godot 4 Visual Shader Utilities"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
 project/assembly_name="Godot 4 Visual Shader Utilities"
+
+[rendering]
+
+lights_and_shadows/directional_shadow/size=8192
+lights_and_shadows/positional_shadow/atlas_size=8192
