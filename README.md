@@ -1,5 +1,5 @@
 # Godot 4 Visual Shader Utilities
-Godot Version Used: 4.1 stable
+Godot Version Used: 4.2 dev1
 
 ## Directory structure:
 | Directory | Description |
