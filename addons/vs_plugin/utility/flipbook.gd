@@ -28,7 +28,7 @@ func _get_input_port_name(port):
 		0:
 			return "uv in"
 		1:
-			return "Speed"
+			return "speed"
 
 
 func _get_input_port_type(port):
@@ -40,14 +40,24 @@ func _get_input_port_type(port):
 
 
 func _get_output_port_count() -> int:
-	return 1
-
-func _get_output_port_name(port) -> String:
-	return "uv out"
+	return 2
 
 
-func _get_output_port_type(port) -> PortType:
-	return PORT_TYPE_VECTOR_2D
+func _get_output_port_name(port):
+	match port:
+		0:
+			return "uv out"
+		1:
+			return "lerpframe data"
+
+
+func _get_output_port_type(port):
+	match port:
+		0:
+			return PORT_TYPE_VECTOR_2D
+		1:
+			return PORT_TYPE_VECTOR_3D
+
 
 
 func _get_global_code(mode) -> String:
@@ -66,8 +76,8 @@ func _get_code(input_vars: Array[String], output_vars: Array[String], mode: Shad
 	if input_vars[1]:
 		rate = input_vars[1]
 		
-	var params =  [uv, rate, output_vars[0]]
-	return "fLiPBook(%s, %s, INSTANCE_CUSTOM.z, TIME, %s);" % params
+	var params = [uv, rate, output_vars[0], output_vars[1]]
+	return "fLiPBook(%s, %s, INSTANCE_CUSTOM, TIME, %s, %s);" % params
 	
 
 func _init():
