@@ -25,13 +25,14 @@ texture_repeat = 2
 initialized = true
 script = ExtResource("1_qm7y4")
 
-[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_37ude"]
-initialized = true
-script = ExtResource("2_ktn1p")
-
 [sub_resource type="VisualShaderNodeVaryingSetter" id="VisualShaderNodeVaryingSetter_11qbe"]
 varying_name = "LerpFrameData"
 varying_type = 4
+
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_hhws3"]
+default_input_values = [1, 1.0]
+initialized = true
+script = ExtResource("2_ktn1p")
 
 [resource]
 code = "shader_type spatial;
@@ -203,53 +204,22 @@ void lerPframe(vec2 _uv_in, vec4 _color_in, vec3 _lerpframe_data, sampler2D _alb
 
 }
 
-// void vertex() {
-// 	vec2 ouv;
-// 	vec3 framelerp_data;
-// 	float timer;
-//	 fLiPBook(UV, 1.0, INSTANCE_CUSTOM, TIME, ouv, framelerp_data);
-// 	_timer = framelerp_data.x;
-// 	_next_uv = framelerp_data.yz;
-//	 UV = ouv;
-// }
-
-
-// void fragment() {
-	
-// 	vec4 albedo_tex;
-//	 if (_enable_flowmap) {
-//		 vec2 flow_tex = texture(texture_flow, UV).rg;
-//		 flow_tex -= 0.5;
-//		 flow_tex *= 2.0;
-//		 vec2 flow_uv = UV + flow_tex * _timer * -_flow_strength;
-//		 vec2 reverse_flow_uv = _next_uv + flow_tex * (1.0 - _timer) * _flow_strength;
-//		 albedo_tex = mix(texture(flipbookTex, flow_uv), texture(flipbookTex, reverse_flow_uv), _timer);
-//	 } else {
-//		 albedo_tex = texture(flipbookTex, UV);
-//	 }
-
-//	 albedo_tex *= COLOR;
-	
-//	 ALBEDO = _albedo.rgb * albedo_tex.rgb;
-//	 ALPHA *= _albedo.a * albedo_tex.a;
-// }
-
-
 void vertex() {
-	vec2 n_out4p0;
-	vec3 n_out4p1;
-// Flipbook:4
+	vec2 n_out6p0;
+	vec3 n_out6p1;
+// Flipbook:6
+	float n_in6p1 = 1.00000;
 	{
-		fLiPBook(UV, 1.0, INSTANCE_CUSTOM, TIME, n_out4p0, n_out4p1);
+		fLiPBook(UV, n_in6p1, INSTANCE_CUSTOM, TIME, n_out6p0, n_out6p1);
 	}
 
 
 // Output:0
-	UV = n_out4p0;
+	UV = n_out6p0;
 
 
 // VaryingSetter:5
-	LerpFrameData = n_out4p1;
+	LerpFrameData = n_out6p1;
 
 
 }
@@ -280,22 +250,23 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-599.351, 18.1046)
 flags/unshaded = true
 flags/shadows_disabled = true
 varyings/LerpFrameData = "0,4"
 nodes/vertex/0/position = Vector2(540, 140)
-nodes/vertex/4/node = SubResource("VisualShaderNodeCustom_37ude")
-nodes/vertex/4/position = Vector2(-300, 180)
 nodes/vertex/5/node = SubResource("VisualShaderNodeVaryingSetter_11qbe")
 nodes/vertex/5/position = Vector2(80, 340)
-nodes/vertex/connections = PackedInt32Array(4, 0, 0, 4, 4, 1, 5, 0)
+nodes/vertex/6/node = SubResource("VisualShaderNodeCustom_hhws3")
+nodes/vertex/6/position = Vector2(-340, 140)
+nodes/vertex/connections = PackedInt32Array(6, 0, 0, 4, 6, 1, 5, 0)
 nodes/fragment/0/position = Vector2(460, 420)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_j4rjd")
 nodes/fragment/3/position = Vector2(-1200, 460)
 nodes/fragment/9/node = SubResource("VisualShaderNodeCustom_0eu60")
 nodes/fragment/9/position = Vector2(-420, 840)
 nodes/fragment/10/node = SubResource("VisualShaderNodeVectorDecompose_y3jpk")
-nodes/fragment/10/position = Vector2(-20, 900)
+nodes/fragment/10/position = Vector2(0, 900)
 nodes/fragment/11/node = SubResource("VisualShaderNodeTexture2DParameter_hn860")
 nodes/fragment/11/position = Vector2(-1200, 880)
 nodes/fragment/12/node = SubResource("VisualShaderNodeVaryingGetter_ohkpw")
