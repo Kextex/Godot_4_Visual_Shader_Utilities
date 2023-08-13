@@ -51,7 +51,7 @@ Godot Version Used: 4.2 dev3
   <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/736aa3a1-3893-47d8-8172-355d0b472aa2" alt="para" width="30%" height="30%">
 
   **Description:**  
-  Interpolate frames of flipbook animation.
+  Interpolate frames of flipbook animation utilizing flow map.
   
   **Parameter:**
   - **Lerpframe Data:** Receiving lerpframe data from Flipbook output.
