@@ -250,15 +250,15 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-599.351, 18.1046)
+graph_offset = Vector2(-834.473, 467.265)
 flags/unshaded = true
 flags/shadows_disabled = true
 varyings/LerpFrameData = "0,4"
 nodes/vertex/0/position = Vector2(540, 140)
 nodes/vertex/5/node = SubResource("VisualShaderNodeVaryingSetter_11qbe")
-nodes/vertex/5/position = Vector2(80, 340)
+nodes/vertex/5/position = Vector2(100, 400)
 nodes/vertex/6/node = SubResource("VisualShaderNodeCustom_hhws3")
-nodes/vertex/6/position = Vector2(-340, 140)
+nodes/vertex/6/position = Vector2(-280, 140)
 nodes/vertex/connections = PackedInt32Array(6, 0, 0, 4, 6, 1, 5, 0)
 nodes/fragment/0/position = Vector2(460, 420)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_j4rjd")
