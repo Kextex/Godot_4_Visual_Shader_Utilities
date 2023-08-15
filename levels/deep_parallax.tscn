@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dyueagj8thi5w" path="res://textures/cobblestones_asmr.tga" id="6_pro68"]
 [ext_resource type="CameraAttributesPhysical" uid="uid://dwd0wmb6shu6" path="res://environments/ca_default_environment.tres" id="7_7q7ap"]
 [ext_resource type="Texture2D" uid="uid://dv6sj1m7jot2i" path="res://textures/cobblestones_d.tga" id="7_uuea7"]
+[ext_resource type="Texture2D" uid="uid://chp7yh145d627" path="res://textures/cobblestones_h.tga" id="8_1vsho"]
 [ext_resource type="Texture2D" uid="uid://jm5y7r4h451k" path="res://textures/cobblestones_n.tga" id="9_3ovo4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k5gvq"]
@@ -25,13 +26,11 @@ shader_parameter/Specular = 0.5
 shader_parameter/EnableAOTex = false
 shader_parameter/AO_LightAffect = 0.0
 shader_parameter/NormalMapDepth = 1.0
-shader_parameter/depth_scalar = 0.16
+shader_parameter/depth_scalar = 0.1
 shader_parameter/TexHeight = ExtResource("4_f6x63")
 shader_parameter/TexAlbedoTex = ExtResource("3_3t055")
 shader_parameter/TexASMR = ExtResource("2_tqkw4")
 shader_parameter/TexNormal = ExtResource("5_f6rhb")
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m3cwt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b2aja"]
 render_priority = 1
@@ -47,8 +46,8 @@ shader_parameter/Specular = 0.5
 shader_parameter/EnableAOTex = false
 shader_parameter/AO_LightAffect = 0.0
 shader_parameter/NormalMapDepth = 1.0
-shader_parameter/depth_scalar = 0.1
-shader_parameter/TexHeight = SubResource("CompressedTexture2D_m3cwt")
+shader_parameter/depth_scalar = 0.15
+shader_parameter/TexHeight = ExtResource("8_1vsho")
 shader_parameter/TexAlbedoTex = ExtResource("7_uuea7")
 shader_parameter/TexASMR = ExtResource("6_pro68")
 shader_parameter/TexNormal = ExtResource("9_3ovo4")
