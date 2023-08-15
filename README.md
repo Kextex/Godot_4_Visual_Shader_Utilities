@@ -26,6 +26,20 @@ Godot Version Used: 4.2 dev3
 
 ---
 
+- ### Deep Parallax
+  **Preview:**  
+  <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/97d336b1-3d05-4fb1-b855-5f0110ef983e" alt="node" width="15%" height="15%">  
+  <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/ca9f9321-f958-46d1-b6a7-f871a824ee45" alt="para" width="30%" height="30%">
+
+  **Description:**  
+  Deep Parallax Mapping, simulating texture displacement based on depth information.
+  
+  **Parameter:**
+  - **Base Layers, Detail Layers:** "Base layers" and "detail layers" refer to different levels or layers of textures applied to a surface。
+  - **Depth Scalar:** Influence the intensity of texture displacement based on depth information..
+
+---
+
 - ### Flipbook
   **Preview:**  
   [YT Tutorial](https://youtu.be/Ccmso1cfEIA)  
@@ -66,3 +80,5 @@ Godot Version Used: 4.2 dev3
 ## Demo Scenes:
 
   <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/9ec0f94c-2b26-4291-9063-1556e46f8d3c" alt="para" width="50%" height="50%">
+  <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/fa48543c-d71f-4244-909a-9f96721f6189" alt="para" width="50%" height="50%">
+  
