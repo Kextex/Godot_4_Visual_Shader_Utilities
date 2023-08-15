@@ -20,5 +20,6 @@ project/assembly_name="Godot 4 Visual Shader Utilities"
 
 [rendering]
 
+lights_and_shadows/use_physical_light_units=true
 lights_and_shadows/directional_shadow/size=8192
 lights_and_shadows/positional_shadow/atlas_size=8192

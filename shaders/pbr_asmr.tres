@@ -1,0 +1,232 @@
+[gd_resource type="VisualShader" load_steps=20 format=3 uid="uid://d3fhn63ortpy3"]
+
+[sub_resource type="VisualShaderNodeSwitch" id="VisualShaderNodeSwitch_7i5qo"]
+default_input_values = [0, false, 1, 1.0, 2, 0.8]
+
+[sub_resource type="VisualShaderNodeBooleanParameter" id="VisualShaderNodeBooleanParameter_531k5"]
+parameter_name = "EnableRoughnessTex"
+default_value_enabled = true
+default_value = true
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_ixn8t"]
+parameter_name = "TexASMR"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_kmjf7"]
+expanded_output_ports = [0]
+source = 5
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_wliee"]
+parameter_name = "TexAlbedoTex"
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_u2171"]
+expanded_output_ports = [0]
+source = 5
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_12817"]
+parameter_name = "TexNormal"
+texture_type = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_pwk6e"]
+parameter_name = "NormalMapDepth"
+default_value_enabled = true
+default_value = 1.0
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_noj3c"]
+parameter_name = "AO_LightAffect"
+hint = 1
+max = 20.0
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_tuiva"]
+parameter_name = "Roughness"
+hint = 1
+default_value_enabled = true
+default_value = 0.8
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_0xuyr"]
+parameter_name = "Metallic"
+hint = 1
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_g0tvo"]
+parameter_name = "Specular"
+hint = 1
+default_value_enabled = true
+default_value = 0.5
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_24elc"]
+expanded_output_ports = [0]
+source = 5
+
+[sub_resource type="VisualShaderNodeSwitch" id="VisualShaderNodeSwitch_eses5"]
+default_input_values = [0, false, 1, 1.0, 2, 1.0]
+
+[sub_resource type="VisualShaderNodeBooleanParameter" id="VisualShaderNodeBooleanParameter_yefai"]
+parameter_name = "EnableAOTex"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeBooleanParameter" id="VisualShaderNodeBooleanParameter_rqioh"]
+parameter_name = "EnableSpecularTex"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeSwitch" id="VisualShaderNodeSwitch_6tlw1"]
+default_input_values = [0, false, 1, 1.0, 2, 0.5]
+
+[sub_resource type="VisualShaderNodeSwitch" id="VisualShaderNodeSwitch_25iyn"]
+
+[sub_resource type="VisualShaderNodeBooleanParameter" id="VisualShaderNodeBooleanParameter_l4400"]
+parameter_name = "EnableMetallicTex"
+default_value_enabled = true
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D TexAlbedoTex : source_color;
+uniform bool EnableMetallicTex = false;
+uniform sampler2D TexASMR;
+uniform float Metallic : hint_range(0, 1) = 0;
+uniform bool EnableRoughnessTex = true;
+uniform float Roughness : hint_range(0, 1) = 0.80000001192093;
+uniform bool EnableSpecularTex = false;
+uniform float Specular : hint_range(0, 1) = 0.5;
+uniform bool EnableAOTex = false;
+uniform float AO_LightAffect : hint_range(0, 20) = 0;
+uniform sampler2D TexNormal : hint_normal;
+uniform float NormalMapDepth = 1;
+
+
+
+void fragment() {
+	vec4 n_out13p0;
+// Texture2D:13
+	n_out13p0 = texture(TexAlbedoTex, UV);
+
+
+// BooleanParameter:9
+	bool n_out9p0 = EnableMetallicTex;
+
+
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(TexASMR, UV);
+	float n_out3p1 = n_out3p0.r;
+	float n_out3p2 = n_out3p0.g;
+	float n_out3p3 = n_out3p0.b;
+	float n_out3p4 = n_out3p0.a;
+
+
+// FloatParameter:20
+	float n_out20p0 = Metallic;
+
+
+	float n_out8p0;
+// Switch:8
+	n_out8p0 = mix(n_out20p0, n_out3p3, float(n_out9p0));
+
+
+// BooleanParameter:11
+	bool n_out11p0 = EnableRoughnessTex;
+
+
+// FloatParameter:19
+	float n_out19p0 = Roughness;
+
+
+	float n_out10p0;
+// Switch:10
+	n_out10p0 = mix(n_out19p0, n_out3p4, float(n_out11p0));
+
+
+// BooleanParameter:6
+	bool n_out6p0 = EnableSpecularTex;
+
+
+// FloatParameter:21
+	float n_out21p0 = Specular;
+
+
+	float n_out7p0;
+// Switch:7
+	n_out7p0 = mix(n_out21p0, n_out3p2, float(n_out6p0));
+
+
+// BooleanParameter:5
+	bool n_out5p0 = EnableAOTex;
+
+
+	float n_out4p0;
+// Switch:4
+	float n_in4p2 = 1.00000;
+	n_out4p0 = mix(n_in4p2, n_out3p1, float(n_out5p0));
+
+
+// FloatParameter:18
+	float n_out18p0 = AO_LightAffect;
+
+
+	vec4 n_out15p0;
+// Texture2D:15
+	n_out15p0 = texture(TexNormal, UV);
+
+
+// FloatParameter:17
+	float n_out17p0 = NormalMapDepth;
+
+
+// Output:0
+	ALBEDO = vec3(n_out13p0.xyz);
+	METALLIC = n_out8p0;
+	ROUGHNESS = n_out10p0;
+	SPECULAR = n_out7p0;
+	AO = n_out4p0;
+	AO_LIGHT_AFFECT = n_out18p0;
+	NORMAL_MAP = vec3(n_out15p0.xyz);
+	NORMAL_MAP_DEPTH = n_out17p0;
+
+
+}
+"
+modes/cull = 2
+nodes/vertex/0/position = Vector2(400, 160)
+nodes/fragment/0/position = Vector2(9780, 1480)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_24elc")
+nodes/fragment/3/position = Vector2(8200, 2320)
+nodes/fragment/4/node = SubResource("VisualShaderNodeSwitch_eses5")
+nodes/fragment/4/position = Vector2(9000, 1420)
+nodes/fragment/5/node = SubResource("VisualShaderNodeBooleanParameter_yefai")
+nodes/fragment/5/position = Vector2(8200, 1260)
+nodes/fragment/6/node = SubResource("VisualShaderNodeBooleanParameter_rqioh")
+nodes/fragment/6/position = Vector2(8200, 1520)
+nodes/fragment/7/node = SubResource("VisualShaderNodeSwitch_6tlw1")
+nodes/fragment/7/position = Vector2(9000, 1700)
+nodes/fragment/8/node = SubResource("VisualShaderNodeSwitch_25iyn")
+nodes/fragment/8/position = Vector2(9020, 1960)
+nodes/fragment/9/node = SubResource("VisualShaderNodeBooleanParameter_l4400")
+nodes/fragment/9/position = Vector2(8200, 1760)
+nodes/fragment/10/node = SubResource("VisualShaderNodeSwitch_7i5qo")
+nodes/fragment/10/position = Vector2(9020, 2220)
+nodes/fragment/11/node = SubResource("VisualShaderNodeBooleanParameter_531k5")
+nodes/fragment/11/position = Vector2(8200, 2020)
+nodes/fragment/12/node = SubResource("VisualShaderNodeTexture2DParameter_ixn8t")
+nodes/fragment/12/position = Vector2(7680, 2160)
+nodes/fragment/13/node = SubResource("VisualShaderNodeTexture_kmjf7")
+nodes/fragment/13/position = Vector2(8940, 1040)
+nodes/fragment/14/node = SubResource("VisualShaderNodeTexture2DParameter_wliee")
+nodes/fragment/14/position = Vector2(8440, 820)
+nodes/fragment/15/node = SubResource("VisualShaderNodeTexture_u2171")
+nodes/fragment/15/position = Vector2(8940, 2640)
+nodes/fragment/16/node = SubResource("VisualShaderNodeTexture2DParameter_12817")
+nodes/fragment/16/position = Vector2(8440, 2640)
+nodes/fragment/17/node = SubResource("VisualShaderNodeFloatParameter_pwk6e")
+nodes/fragment/17/position = Vector2(8920, 2940)
+nodes/fragment/18/node = SubResource("VisualShaderNodeFloatParameter_noj3c")
+nodes/fragment/18/position = Vector2(9320, 720)
+nodes/fragment/19/node = SubResource("VisualShaderNodeFloatParameter_tuiva")
+nodes/fragment/19/position = Vector2(7958.05, 2660)
+nodes/fragment/20/node = SubResource("VisualShaderNodeFloatParameter_0xuyr")
+nodes/fragment/20/position = Vector2(7696.53, 1673.65)
+nodes/fragment/21/node = SubResource("VisualShaderNodeFloatParameter_g0tvo")
+nodes/fragment/21/position = Vector2(7698.05, 1200)
+nodes/fragment/connections = PackedInt32Array(4, 0, 0, 6, 3, 1, 4, 1, 5, 0, 4, 0, 3, 2, 7, 1, 6, 0, 7, 0, 7, 0, 0, 4, 9, 0, 8, 0, 8, 0, 0, 2, 3, 3, 8, 1, 11, 0, 10, 0, 3, 4, 10, 1, 10, 0, 0, 3, 12, 0, 3, 2, 14, 0, 13, 2, 13, 0, 0, 0, 16, 0, 15, 2, 15, 0, 0, 9, 17, 0, 0, 10, 18, 0, 0, 7, 19, 0, 10, 2, 20, 0, 8, 2, 21, 0, 7, 2)

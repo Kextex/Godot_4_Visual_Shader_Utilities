@@ -6,5 +6,6 @@ auto_exposure_enabled = true
 auto_exposure_scale = 0.47
 auto_exposure_speed = 2.85
 frustum_focal_length = 22.0
+exposure_aperture = 13.27
 auto_exposure_min_exposure_value = 0.0
 auto_exposure_max_exposure_value = 0.46

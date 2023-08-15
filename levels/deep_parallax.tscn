@@ -1,0 +1,79 @@
+[gd_scene load_steps=14 format=3 uid="uid://btdlku4nxpsvj"]
+
+[ext_resource type="Shader" uid="uid://77e5aydepnnk" path="res://shaders/deep_parallax_pbr_asmr.tres" id="1_q8ngv"]
+[ext_resource type="Texture2D" uid="uid://t4srbjetck1o" path="res://textures/texture_rock_asmr.png" id="2_tqkw4"]
+[ext_resource type="Texture2D" uid="uid://c5qjfqrtx5ud1" path="res://textures/texture_rock_albedo.png" id="3_3t055"]
+[ext_resource type="Texture2D" uid="uid://ncabyb3r6ql8" path="res://textures/texture_rock_height.bmp" id="4_f6x63"]
+[ext_resource type="Texture2D" uid="uid://crbkrj0gtyhkt" path="res://textures/texture_rock_normal.png" id="5_f6rhb"]
+[ext_resource type="Environment" uid="uid://fu26fprl3d5v" path="res://environments/default_environment.tres" id="6_dnx2p"]
+[ext_resource type="Texture2D" uid="uid://dyueagj8thi5w" path="res://textures/cobblestones_asmr.tga" id="6_pro68"]
+[ext_resource type="CameraAttributesPhysical" uid="uid://dwd0wmb6shu6" path="res://environments/ca_default_environment.tres" id="7_7q7ap"]
+[ext_resource type="Texture2D" uid="uid://dv6sj1m7jot2i" path="res://textures/cobblestones_d.tga" id="7_uuea7"]
+[ext_resource type="Texture2D" uid="uid://jm5y7r4h451k" path="res://textures/cobblestones_n.tga" id="9_3ovo4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k5gvq"]
+render_priority = 1
+shader = ExtResource("1_q8ngv")
+shader_parameter/base_layers = 128.0
+shader_parameter/detail_layers = 64.0
+shader_parameter/EnableMetallicTex = false
+shader_parameter/Metallic = 0.0
+shader_parameter/EnableRoughnessTex = true
+shader_parameter/Roughness = 0.8
+shader_parameter/EnableSpecularTex = false
+shader_parameter/Specular = 0.5
+shader_parameter/EnableAOTex = false
+shader_parameter/AO_LightAffect = 0.0
+shader_parameter/NormalMapDepth = 1.0
+shader_parameter/depth_scalar = 0.16
+shader_parameter/TexHeight = ExtResource("4_f6x63")
+shader_parameter/TexAlbedoTex = ExtResource("3_3t055")
+shader_parameter/TexASMR = ExtResource("2_tqkw4")
+shader_parameter/TexNormal = ExtResource("5_f6rhb")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m3cwt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b2aja"]
+render_priority = 1
+shader = ExtResource("1_q8ngv")
+shader_parameter/base_layers = 128.0
+shader_parameter/detail_layers = 64.0
+shader_parameter/EnableMetallicTex = false
+shader_parameter/Metallic = 0.0
+shader_parameter/EnableRoughnessTex = true
+shader_parameter/Roughness = 0.8
+shader_parameter/EnableSpecularTex = false
+shader_parameter/Specular = 0.5
+shader_parameter/EnableAOTex = false
+shader_parameter/AO_LightAffect = 0.0
+shader_parameter/NormalMapDepth = 1.0
+shader_parameter/depth_scalar = 0.1
+shader_parameter/TexHeight = SubResource("CompressedTexture2D_m3cwt")
+shader_parameter/TexAlbedoTex = ExtResource("7_uuea7")
+shader_parameter/TexASMR = ExtResource("6_pro68")
+shader_parameter/TexNormal = ExtResource("9_3ovo4")
+
+[node name="Node" type="Node"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.9175, -0.130764, 0.0150617, 0.0193108)
+material = SubResource("ShaderMaterial_k5gvq")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08021, 0.00286293, -0.00133133)
+material = SubResource("ShaderMaterial_b2aja")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("6_dnx2p")
+camera_attributes = ExtResource("7_7q7ap")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.132435, 0.919505, -0.370097, 0.587085, 0.228074, 0.776733, 0.798619, -0.320145, -0.509623, -0.333615, 1.14747, -1.36907)
+light_energy = 0.311
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.88747, -0.175525, -0.426132, 0.0547858, 0.958257, -0.280611, 0.457598, 0.225688, 0.86004, -1.67381, -1.09998, 2.84088)
+visible = false
+light_intensity_lumens = 68769.7
+light_energy = 6.502
+spot_angle = 45.381
