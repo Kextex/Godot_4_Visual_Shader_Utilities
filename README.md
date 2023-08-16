@@ -28,15 +28,18 @@ Godot Version Used: 4.2 dev3
 
 - ### Deep Parallax
   **Preview:**  
-  <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/97d336b1-3d05-4fb1-b855-5f0110ef983e" alt="node" width="15%" height="15%">  
-  <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/ca9f9321-f958-46d1-b6a7-f871a824ee45" alt="para" width="30%" height="30%">
+  <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/146d995b-c51c-48b2-964b-d897b1f9cd95" alt="node" width="15%" height="15%">  
+  <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/65308165-031d-4410-babb-11f1cb72dfc6" alt="para" width="30%" height="30%">
 
   **Description:**  
   Deep Parallax Mapping, simulating texture displacement based on depth information.
   
   **Parameter:**
-  - **Base Layers, Detail Layers:** "Base layers" and "detail layers" refer to different levels or layers of textures applied to a surface。
-  - **Depth Scalar:** Influence the intensity of texture displacement based on depth information..
+  - **Heightmap Scale:** Influence the intensity of texture displacement based on depth information.
+  - **Min Layers** Min layers sets the minimum number of texture layers used in deep parallax mapping, determining the detail level.
+  - **Max Layers:** Max layers sets the maximum number of layers, influencing the mapping's performance and visual quality.
+  - **Depth Flip:** Adjust the view direction in relation to the surface's tangent, binormal, and normal vectors.
+  - **Flip Heightmap:** The 'Flip Heightmap' option can be used to invert the orientation of the heightmap. In a heightmap, brighter grayscale values typically represent higher terrain elevations, while darker grayscale values indicate lower terrain elevations.
 
 ---
 
