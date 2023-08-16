@@ -27,13 +27,13 @@ func _get_input_port_name(port):
 		1:
 			return "texture"
 		2:
-			return "heightmap_scale"
+			return "heightmap scale"
 		3:
 			return "min layers"
 		4:
 			return "max layers"
 		5:
-			return "depth_flip"
+			return "depth flip"
 
 
 func _get_input_port_type(port):
