@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=25 format=3 uid="uid://77e5aydepnnk"]
+[gd_resource type="VisualShader" load_steps=23 format=3 uid="uid://77e5aydepnnk"]
 
 [ext_resource type="Script" path="res://addons/vs_plugin/3d/deep_parallax.gd" id="1_10jtx"]
 
@@ -60,24 +60,10 @@ hint = 1
 default_value_enabled = true
 default_value = 0.5
 
-[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_25f3v"]
-default_input_values = [3, 8.0, 4, 8.0, 9, Vector3(1, 1, 0)]
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_3mtbx"]
+default_input_values = [3, 8, 4, 32, 5, Vector2(1, 1)]
 initialized = true
 script = ExtResource("1_10jtx")
-
-[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_k2yag"]
-parameter_name = "base_layers"
-hint = 1
-max = 256.0
-default_value_enabled = true
-default_value = 128.0
-
-[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_kdr5l"]
-parameter_name = "detail_layers"
-hint = 1
-max = 256.0
-default_value_enabled = true
-default_value = 64.0
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_lvl8w"]
 expanded_output_ports = [0]
@@ -108,8 +94,6 @@ code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
 
 uniform sampler2D TexHeight;
-uniform float base_layers : hint_range(0, 256) = 128;
-uniform float detail_layers : hint_range(0, 256) = 64;
 uniform sampler2D TexAlbedoTex : source_color;
 uniform bool EnableMetallicTex = false;
 uniform sampler2D TexASMR;
@@ -125,101 +109,74 @@ uniform float NormalMapDepth = 1;
 
 
 // DeepParallax
-/*
-*	References:
-*		https://github.com/Maujoe/Godot-Visual-Shader-Node-Library/blob/master/addons/visual_shader_node_library/shader_nodes/3d/deep_parallax.shader
-*/
-
-// uniform sampler2D texture_parallax_default: hint_default_black;
-uniform float depth_scalar: hint_range(0.0, 1.0, 0.01) = 0.1;
+//uniform sampler2D texture_parallax_default: hint_default_black;
+uniform float heightmap_scale: hint_range(0.0, 20.0, 0.01) = 5;
+uniform vec2 _depth_flip = vec2(1.0, 1.0);
+uniform bool flip_heightmap = false;
 //uniform sampler2D texture_albedo: source_color;
 
-// Calculate the adjusted depth for a given layer
-float calculate_adjusted_depth(float current_layer, float layer_depth) {
-    return current_layer * layer_depth;
-}
-
-// Sample depth and calculate texture offset for parallax effect
-vec2 sample_depth_and_calculate_offset(vec2 uv, sampler2D _depth_texture, float current_depth, vec2 delta, float layer_depth) {
-    vec2 ofs = uv;
-    float adjusted_depth = current_depth;
-
-    // Iterate twice to sample depth and calculate offset
-    for (int i = 0; i < 2; i++) {
-        ofs -= 0.2 * delta; // Adjust the texture coordinate
-        adjusted_depth = 1.0 - textureLod(_depth_texture, ofs, 0.0).r;
-    }
-
-    // Calculate final offset based on adjusted depth
-    ofs += (adjusted_depth - current_depth) * delta / layer_depth;
-
-    // Apply step function to control texture blending
-    return mix(uv, ofs, step(adjusted_depth, current_depth));
-}
-
 // Perform deep parallax mapping
-void deep_parallax(in vec2 _uv_in, in sampler2D _depth_texture, in float depth_scale, in float _base_layers, in float _detail_layers, in vec3 vertex, in vec3 normal, in vec3 tangent, in vec3 binormal, in vec3 depth_flip, out vec2 uv_out) {
-    vec3 view_dir = normalize(normalize(-vertex) * mat3(tangent * depth_flip.x, -binormal * depth_flip.y, normal));
-
-    // Calculate the number of layers based on view direction
-    float num_layers = mix(_detail_layers, _base_layers, abs(dot(vec3(0.0, 0.0, 1.0), view_dir)));
-    float layer_depth = 1.0 / num_layers;
-
-    // Calculate the scaled view direction for parallax offset
-    vec2 scaled_view_dir = view_dir.xy * depth_scale;
-    vec2 delta = scaled_view_dir / num_layers;
-    vec2 ofs = _uv_in;
-
-    // Sample initial depth
-    float current_depth = 1.0 - textureLod(_depth_texture, ofs, 0.0).r;
-    
-    bool early_termination = false; // Flag to break out of loop
-
-    // Iterate through layers to perform parallax effect
-    for (float current_layer = 0.0; current_layer < num_layers && !early_termination; current_layer += 1.0) {
-        float adjusted_depth = calculate_adjusted_depth(current_layer, layer_depth);
-
-        if (adjusted_depth > current_depth) {
-            // Calculate texture offset and blending factor
-            float lerp_factor = smoothstep(0.0, 1.0, (adjusted_depth - current_depth) / layer_depth);
-
-            ofs = sample_depth_and_calculate_offset(ofs, _depth_texture, current_depth, delta, layer_depth);
-            early_termination = true;  // Set the flag to break out of the loop
-
-        } else {
-            ofs -= delta; // Adjust texture coordinate
-            current_depth = 1.0 - textureLod(_depth_texture, ofs, 0.0).r;
-        }
-    }
-
-    uv_out.xy = ofs;
+void deep_parallax(in vec2 _uv_in, in sampler2D _texture_heightmap, in float depth_scale, in int _min_layers, in int _max_layers, in vec3 vertex, in vec3 normal, in vec3 tangent, in vec3 binormal, in vec3 eyeoffset, out vec2 uv_out) {
+	vec3 view_dir = normalize(normalize(-vertex + eyeoffset) * mat3(tangent * _depth_flip.x, -binormal * _depth_flip.y, normal));
+	float num_layers = mix(float(_max_layers),float(_min_layers), abs(dot(vec3(0.0, 0.0, 1.0), view_dir)));
+	float layer_depth = 1.0 / num_layers;
+	float current_layer_depth = 0.0;
+	vec2 P = view_dir.xy * heightmap_scale * 0.01;
+	vec2 delta = P / num_layers;
+	vec2 ofs = _uv_in;
+	float depth;
+	
+	if (!flip_heightmap) {
+		depth = 1.0 - texture(_texture_heightmap, ofs).r;
+	} else {
+		depth = texture(_texture_heightmap, ofs).r;
+	}
+	
+	float current_depth = 0.0;
+	while(current_depth < depth) {
+		ofs -= delta;
+		if (!flip_heightmap) {
+			depth = 1.0 - texture(_texture_heightmap, ofs).r;
+		} else {
+			depth = texture(_texture_heightmap, ofs).r;
+		}
+		current_depth += layer_depth;
+	}
+	vec2 prev_ofs = ofs + delta;
+	float after_depth  = depth - current_depth;
+	
+	float before_depth;
+	if (!flip_heightmap) {
+		before_depth = ( 1.0 - texture(_texture_heightmap, prev_ofs).r  ) - current_depth + layer_depth;
+	} else {
+		before_depth = texture(_texture_heightmap, prev_ofs).r - current_depth + layer_depth;
+	}
+	
+	float weight = after_depth / (after_depth - before_depth);
+	ofs = mix(ofs,prev_ofs,weight);
+	uv_out=ofs;
 }
-//
+
 //void fragment() {
     //vec2 corrected_uv;
-    //deep_parallax(UV, texture_parallax_default, depth_scalar, 64.0, 128.0, VERTEX, NORMAL, TANGENT, BINORMAL, vec3(1.0, 1.0, 1.0), corrected_uv);
-    //ALBEDO = texture(texture_albedo, corrected_uv.rg).rgb;
+    //deep_parallax(UV, texture_parallax_default, heightmap_scale, 8, 32, VERTEX, NORMAL, TANGENT, BINORMAL, EYE_OFFSET, corrected_uv);
+    //ALBEDO = texture(texture_albedo, corrected_uv).rgb;
 //}
 
 void fragment() {
-// FloatParameter:26
-	float n_out26p0 = base_layers;
-
-
-// FloatParameter:27
-	float n_out27p0 = detail_layers;
-
-
-	vec2 n_out25p0;
-// DeepParallax:25
+	vec2 n_out28p0;
+// DeepParallax:28
+	int n_in28p3 = 8;
+	int n_in28p4 = 32;
+	vec2 n_in28p5 = vec2(1.00000, 1.00000);
 	{
-		deep_parallax(UV, TexHeight, depth_scalar, n_out26p0, n_out27p0, VERTEX, NORMAL, TANGENT, BINORMAL, vec3(1.0, 1.0, 0.0), n_out25p0);
+		deep_parallax(UV, TexHeight, heightmap_scale, n_in28p3, n_in28p4, VERTEX, NORMAL, TANGENT, BINORMAL, EYE_OFFSET, n_out28p0);
 	}
 
 
 	vec4 n_out13p0;
 // Texture2D:13
-	n_out13p0 = texture(TexAlbedoTex, n_out25p0);
+	n_out13p0 = texture(TexAlbedoTex, n_out28p0);
 
 
 // BooleanParameter:9
@@ -228,7 +185,7 @@ void fragment() {
 
 	vec4 n_out3p0;
 // Texture2D:3
-	n_out3p0 = texture(TexASMR, n_out25p0);
+	n_out3p0 = texture(TexASMR, n_out28p0);
 	float n_out3p1 = n_out3p0.r;
 	float n_out3p2 = n_out3p0.g;
 	float n_out3p3 = n_out3p0.b;
@@ -286,7 +243,7 @@ void fragment() {
 
 	vec4 n_out15p0;
 // Texture2D:15
-	n_out15p0 = texture(TexNormal, n_out25p0);
+	n_out15p0 = texture(TexNormal, n_out28p0);
 
 
 // FloatParameter:17
@@ -306,7 +263,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(9775.53, 2374.42)
 modes/cull = 2
 nodes/fragment/0/position = Vector2(9780, 1480)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_lvl8w")
@@ -349,10 +305,6 @@ nodes/fragment/23/node = SubResource("VisualShaderNodeFloatParameter_jjdea")
 nodes/fragment/23/position = Vector2(7660, 1660)
 nodes/fragment/24/node = SubResource("VisualShaderNodeFloatParameter_hvhio")
 nodes/fragment/24/position = Vector2(7500, 1180)
-nodes/fragment/25/node = SubResource("VisualShaderNodeCustom_25f3v")
-nodes/fragment/25/position = Vector2(7360, 1800)
-nodes/fragment/26/node = SubResource("VisualShaderNodeFloatParameter_k2yag")
-nodes/fragment/26/position = Vector2(6400, 1940)
-nodes/fragment/27/node = SubResource("VisualShaderNodeFloatParameter_kdr5l")
-nodes/fragment/27/position = Vector2(6840, 2200)
-nodes/fragment/connections = PackedInt32Array(4, 0, 0, 6, 3, 1, 4, 1, 5, 0, 4, 0, 3, 2, 7, 1, 6, 0, 7, 0, 7, 0, 0, 4, 9, 0, 8, 0, 8, 0, 0, 2, 3, 3, 8, 1, 11, 0, 10, 0, 3, 4, 10, 1, 12, 0, 3, 2, 14, 0, 13, 2, 13, 0, 0, 0, 16, 0, 15, 2, 15, 0, 0, 9, 17, 0, 0, 10, 10, 0, 0, 3, 20, 0, 0, 7, 21, 0, 10, 2, 23, 0, 8, 2, 24, 0, 7, 2, 18, 0, 25, 1, 25, 0, 13, 0, 25, 0, 3, 0, 25, 0, 15, 0, 26, 0, 25, 3, 27, 0, 25, 4)
+nodes/fragment/28/node = SubResource("VisualShaderNodeCustom_3mtbx")
+nodes/fragment/28/position = Vector2(7403.24, 1828.52)
+nodes/fragment/connections = PackedInt32Array(4, 0, 0, 6, 3, 1, 4, 1, 5, 0, 4, 0, 3, 2, 7, 1, 6, 0, 7, 0, 7, 0, 0, 4, 9, 0, 8, 0, 8, 0, 0, 2, 3, 3, 8, 1, 11, 0, 10, 0, 3, 4, 10, 1, 12, 0, 3, 2, 14, 0, 13, 2, 13, 0, 0, 0, 16, 0, 15, 2, 15, 0, 0, 9, 17, 0, 0, 10, 10, 0, 0, 3, 20, 0, 0, 7, 21, 0, 10, 2, 23, 0, 8, 2, 24, 0, 7, 2, 18, 0, 28, 1, 28, 0, 13, 0, 28, 0, 3, 0, 28, 0, 15, 0)

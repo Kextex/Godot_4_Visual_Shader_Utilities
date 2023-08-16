@@ -250,7 +250,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-770, 272)
 flags/unshaded = true
 flags/shadows_disabled = true
 varyings/LerpFrameData = "0,4"
