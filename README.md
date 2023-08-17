@@ -22,7 +22,7 @@ Godot Version Used: 4.2 dev3
   Make color into grayscale.
   
   **Parameter:**  
-  - **Amount:** Amount of desaturation..
+  - **Amount:** Amount of desaturation. Default value is 0.0.
 
 ---
 
