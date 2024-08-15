@@ -193,9 +193,9 @@ void fragment() {
 flags/unshaded = true
 nodes/vertex/0/position = Vector2(240, 180)
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_1qpsm")
-nodes/vertex/2/position = Vector2(-280, 440)
+nodes/vertex/2/position = Vector2(-280, 600)
 nodes/vertex/3/node = SubResource("VisualShaderNodeCustom_2l3qk")
-nodes/vertex/3/position = Vector2(-300, 240)
+nodes/vertex/3/position = Vector2(-280, 360)
 nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10, 3, 0, 0, 4)
 nodes/fragment/0/position = Vector2(320, 320)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_qcb4k")

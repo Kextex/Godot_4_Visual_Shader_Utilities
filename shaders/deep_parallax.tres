@@ -24,11 +24,6 @@ uniform sampler2D tex_frg_3 : source_color;
 
 
 // DeepParallax
-/*
-*	References:
-*		https://github.com/Maujoe/Godot-Visual-Shader-Node-Library/blob/master/addons/visual_shader_node_library/shader_nodes/3d/deep_parallax.shader
-*/
-
 //uniform sampler2D texture_parallax_default: hint_default_black;
 uniform float heightmap_scale: hint_range(0.0, 20.0, 0.01) = 5;
 uniform vec2 _depth_flip = vec2(1.0, 1.0);
