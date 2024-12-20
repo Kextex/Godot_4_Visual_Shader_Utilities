@@ -84,4 +84,8 @@ Godot Version Used: 4.3 stable
 
   <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/9ec0f94c-2b26-4291-9063-1556e46f8d3c" alt="para" width="50%" height="50%">
   <img src="https://github.com/Kextex/Godot_4_Visual_Shader_Utilities/assets/114914897/fa48543c-d71f-4244-909a-9f96721f6189" alt="para" width="50%" height="50%">
+
+
+## Sources:
+- https://github.com/Arnklit/godot_particle_flipbook_smoothing
   
