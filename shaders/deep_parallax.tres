@@ -1,7 +1,7 @@
 [gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://dxdk4r04vygms"]
 
 [ext_resource type="Texture2D" uid="uid://c5qjfqrtx5ud1" path="res://textures/texture_rock_albedo.png" id="1_g35qb"]
-[ext_resource type="Script" path="res://addons/vs_plugin/3d/deep_parallax.gd" id="2_yc80g"]
+[ext_resource type="Script" uid="uid://d4kl5xifhj0o5" path="res://addons/vs_plugin/3d/deep_parallax.gd" id="2_yc80g"]
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_7sr23"]
 texture = ExtResource("1_g35qb")
@@ -98,6 +98,7 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-692.96, 67.9165)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_7sr23")
 nodes/fragment/3/position = Vector2(-9.45013, 184.448)
 nodes/fragment/4/node = SubResource("VisualShaderNodeTexture2DParameter_kvisg")

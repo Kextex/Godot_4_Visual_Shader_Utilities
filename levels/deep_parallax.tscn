@@ -15,7 +15,10 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k5gvq"]
 render_priority = 1
 shader = ExtResource("1_q8ngv")
+shader_parameter/TexHeight = ExtResource("4_f6x63")
+shader_parameter/TexAlbedoTex = ExtResource("3_3t055")
 shader_parameter/EnableMetallicTex = false
+shader_parameter/TexASMR = ExtResource("2_u1mgn")
 shader_parameter/Metallic = 0.0
 shader_parameter/EnableRoughnessTex = true
 shader_parameter/Roughness = 0.8
@@ -23,14 +26,11 @@ shader_parameter/EnableSpecularTex = false
 shader_parameter/Specular = 0.5
 shader_parameter/EnableAOTex = false
 shader_parameter/AO_LightAffect = 0.0
+shader_parameter/TexNormal = ExtResource("5_s25aw")
 shader_parameter/NormalMapDepth = 1.0
 shader_parameter/heightmap_scale = 12.68
 shader_parameter/_depth_flip = Vector2(1, 1)
 shader_parameter/flip_heightmap = false
-shader_parameter/TexHeight = ExtResource("4_f6x63")
-shader_parameter/TexAlbedoTex = ExtResource("3_3t055")
-shader_parameter/TexASMR = ExtResource("2_u1mgn")
-shader_parameter/TexNormal = ExtResource("5_s25aw")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yeqb6"]
 albedo_texture = ExtResource("3_3t055")
@@ -43,7 +43,10 @@ heightmap_texture = ExtResource("4_f6x63")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b2aja"]
 render_priority = 1
 shader = ExtResource("1_q8ngv")
+shader_parameter/TexHeight = ExtResource("8_jrsn8")
+shader_parameter/TexAlbedoTex = ExtResource("7_pgwcm")
 shader_parameter/EnableMetallicTex = false
+shader_parameter/TexASMR = ExtResource("6_eyb4p")
 shader_parameter/Metallic = 0.0
 shader_parameter/EnableRoughnessTex = true
 shader_parameter/Roughness = 0.8
@@ -51,14 +54,11 @@ shader_parameter/EnableSpecularTex = false
 shader_parameter/Specular = 0.5
 shader_parameter/EnableAOTex = false
 shader_parameter/AO_LightAffect = 0.0
+shader_parameter/TexNormal = ExtResource("9_6mwip")
 shader_parameter/NormalMapDepth = 1.0
 shader_parameter/heightmap_scale = 14.47
 shader_parameter/_depth_flip = Vector2(1, 1)
 shader_parameter/flip_heightmap = false
-shader_parameter/TexHeight = ExtResource("8_jrsn8")
-shader_parameter/TexAlbedoTex = ExtResource("7_pgwcm")
-shader_parameter/TexASMR = ExtResource("6_eyb4p")
-shader_parameter/TexNormal = ExtResource("9_6mwip")
 
 [node name="Node" type="Node"]
 

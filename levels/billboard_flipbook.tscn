@@ -16,6 +16,7 @@ orientation = 2
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xq8f1"]
 render_priority = 0
 shader = ExtResource("2_aoxn1")
+shader_parameter/TexFlipbook = ExtResource("5_4cfws")
 shader_parameter/_invert_x = false
 shader_parameter/_invert_y = false
 shader_parameter/_limit_frames = false
@@ -24,7 +25,6 @@ shader_parameter/_anim_loop = true
 shader_parameter/_particle_anim = false
 shader_parameter/_number_of_columns = 8
 shader_parameter/_number_of_rows = 8
-shader_parameter/TexFlipbook = ExtResource("5_4cfws")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_addyq"]
 material = SubResource("ShaderMaterial_xq8f1")
@@ -51,6 +51,7 @@ anim_offset_max = 0.075
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_88uk0"]
 render_priority = 0
 shader = ExtResource("7_vnejd")
+shader_parameter/TexFlipbook = ExtResource("5_4cfws")
 shader_parameter/_invert_x = false
 shader_parameter/_invert_y = false
 shader_parameter/_limit_frames = false
@@ -62,7 +63,6 @@ shader_parameter/_number_of_rows = 8
 shader_parameter/_albedo = Color(1, 1, 1, 1)
 shader_parameter/_enable_flowmap = false
 shader_parameter/_flow_strength = 0.015
-shader_parameter/TexFlipbook = ExtResource("5_4cfws")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0e4an"]
 material = SubResource("ShaderMaterial_88uk0")
@@ -84,6 +84,8 @@ anim_speed_max = 1.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p004p"]
 render_priority = 0
 shader = ExtResource("7_vnejd")
+shader_parameter/TexFlipbook = ExtResource("5_qht2u")
+shader_parameter/TexFlowMap = ExtResource("6_7ycqr")
 shader_parameter/_invert_x = false
 shader_parameter/_invert_y = false
 shader_parameter/_limit_frames = false
@@ -95,8 +97,6 @@ shader_parameter/_number_of_rows = 5
 shader_parameter/_albedo = Color(1, 1, 1, 1)
 shader_parameter/_enable_flowmap = true
 shader_parameter/_flow_strength = 0.015
-shader_parameter/TexFlipbook = ExtResource("5_qht2u")
-shader_parameter/TexFlowMap = ExtResource("6_7ycqr")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_27ou1"]
 material = SubResource("ShaderMaterial_p004p")
@@ -179,9 +179,10 @@ void fragment() {
 render_priority = 0
 shader = SubResource("Shader_blbu0")
 shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("3_f8hpv")
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 1.0
-shader_parameter/metallic_texture_channel = null
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
 shader_parameter/particles_anim_h_frames = 3
@@ -191,7 +192,6 @@ shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("3_f8hpv")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_uph8u"]
 material = SubResource("ShaderMaterial_cj64r")

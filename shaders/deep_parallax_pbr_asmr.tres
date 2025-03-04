@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=39 format=3 uid="uid://77e5aydepnnk"]
 
-[ext_resource type="Script" path="res://addons/vs_plugin/3d/deep_parallax.gd" id="1_10jtx"]
+[ext_resource type="Script" uid="uid://d4kl5xifhj0o5" path="res://addons/vs_plugin/3d/deep_parallax.gd" id="1_10jtx"]
 
 [sub_resource type="VisualShaderNodeSwitch" id="VisualShaderNodeSwitch_8ig1c"]
 default_input_values = [0, false, 1, 1.0, 2, 0.8]
@@ -141,15 +141,15 @@ uniform sampler2D TexHeight;
 uniform sampler2D TexAlbedoTex : source_color;
 uniform bool EnableMetallicTex = false;
 uniform sampler2D TexASMR;
-uniform float Metallic : hint_range(0, 1) = 0;
+uniform float Metallic : hint_range(0.0, 1.0) = 0.0;
 uniform bool EnableRoughnessTex = true;
-uniform float Roughness : hint_range(0, 1) = 0.80000001192093;
+uniform float Roughness : hint_range(0.0, 1.0) = 0.80000001192093;
 uniform bool EnableSpecularTex = false;
-uniform float Specular : hint_range(0, 1) = 0.5;
+uniform float Specular : hint_range(0.0, 1.0) = 0.5;
 uniform bool EnableAOTex = false;
-uniform float AO_LightAffect : hint_range(0, 20) = 0;
+uniform float AO_LightAffect : hint_range(0.0, 20.0) = 0.0;
 uniform sampler2D TexNormal : hint_normal;
-uniform float NormalMapDepth = 1;
+uniform float NormalMapDepth = 1.0;
 
 
 // DeepParallax
@@ -371,7 +371,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-450.223, -171.47)
+graph_offset = Vector2(-667.962, -81.5349)
 modes/cull = 2
 nodes/fragment/0/position = Vector2(3740, 780)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_lvl8w")
@@ -385,7 +385,7 @@ nodes/fragment/6/position = Vector2(1020, 880)
 nodes/fragment/7/node = SubResource("VisualShaderNodeSwitch_yhvip")
 nodes/fragment/7/position = Vector2(2980, 920)
 nodes/fragment/8/node = SubResource("VisualShaderNodeSwitch_axcxs")
-nodes/fragment/8/position = Vector2(2060, 1200)
+nodes/fragment/8/position = Vector2(2080, 1180)
 nodes/fragment/9/node = SubResource("VisualShaderNodeBooleanParameter_scnft")
 nodes/fragment/9/position = Vector2(1020, 1220)
 nodes/fragment/10/node = SubResource("VisualShaderNodeSwitch_8ig1c")
@@ -423,11 +423,11 @@ nodes/fragment/30/position = Vector2(3380, 2680)
 nodes/fragment/31/node = SubResource("VisualShaderNodeReroute_xew51")
 nodes/fragment/31/position = Vector2(3320, 2220)
 nodes/fragment/32/node = SubResource("VisualShaderNodeReroute_ulp8x")
-nodes/fragment/32/position = Vector2(3240, 1280)
+nodes/fragment/32/position = Vector2(3240, 1260)
 nodes/fragment/33/node = SubResource("VisualShaderNodeReroute_a2872")
 nodes/fragment/33/position = Vector2(3460, 640)
 nodes/fragment/34/node = SubResource("VisualShaderNodeReroute_xoiwe")
-nodes/fragment/34/position = Vector2(3360, 1160)
+nodes/fragment/34/position = Vector2(3340, 1160)
 nodes/fragment/35/node = SubResource("VisualShaderNodeReroute_t7bsf")
 nodes/fragment/35/position = Vector2(200, 2720)
 nodes/fragment/36/node = SubResource("VisualShaderNodeReroute_eih2i")

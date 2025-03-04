@@ -1,22 +1,22 @@
 [gd_scene load_steps=102 format=3 uid="uid://dp0d8eyj56mu6"]
 
-[ext_resource type="Shader" path="res://shaders/world_space_shader.gdshader" id="2_dfcks"]
+[ext_resource type="Shader" uid="uid://dn22ie4asmsk" path="res://shaders/world_space_shader.gdshader" id="2_dfcks"]
 [ext_resource type="Texture2D" uid="uid://dw1aasqjd0rds" path="res://textures/checker_mask_01.png" id="3_irn7h"]
-[ext_resource type="Script" path="res://addons/vs_plugin/uv/rotate.gd" id="3_vt7pj"]
+[ext_resource type="Script" uid="uid://ylkop41fy3us" path="res://addons/vs_plugin/uv/rotate.gd" id="3_vt7pj"]
 [ext_resource type="Environment" uid="uid://fu26fprl3d5v" path="res://environments/default_environment.tres" id="5_xchoy"]
 [ext_resource type="CameraAttributesPhysical" uid="uid://dwd0wmb6shu6" path="res://environments/ca_default_environment.tres" id="6_h436l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0bwn8"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jm3cp"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_v5si4"]
 output_port_for_preview = 0
@@ -893,62 +893,62 @@ shader_parameter/ColorParameter = Color(0.647059, 0.647059, 0.647059, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_feown"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r6ytn"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2urp5"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y7p47"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(0.647059, 0.647059, 0.647059, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oslim"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(1, 0.454902, 0.454902, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(1, 0.454902, 0.454902, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6pwgt"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(0.894118, 0.635294, 0.0745098, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(0.894118, 0.635294, 0.0745098, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a2n0o"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(1, 0.545098, 0.4, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(1, 0.545098, 0.4, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gsh3y"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(0, 0.709804, 0.945098, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(0, 0.709804, 0.945098, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_132j5"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(0.576471, 0.768627, 0, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(0.576471, 0.768627, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t8e3x"]
 render_priority = 0
 shader = ExtResource("2_dfcks")
-shader_parameter/color = Color(0, 0.803922, 0.65098, 1)
 shader_parameter/checker_tex = ExtResource("3_irn7h")
+shader_parameter/color = Color(0, 0.803922, 0.65098, 1)
 
 [node name="Node" type="Node"]
 

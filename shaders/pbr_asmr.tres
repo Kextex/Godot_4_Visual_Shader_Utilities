@@ -119,15 +119,15 @@ render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specul
 uniform sampler2D TexAlbedoTex : source_color;
 uniform bool EnableMetallicTex = false;
 uniform sampler2D TexASMR;
-uniform float Metallic : hint_range(0, 1) = 0;
+uniform float Metallic : hint_range(0.0, 1.0) = 0.0;
 uniform bool EnableRoughnessTex = true;
-uniform float Roughness : hint_range(0, 1) = 0.80000001192093;
+uniform float Roughness : hint_range(0.0, 1.0) = 0.80000001192093;
 uniform bool EnableSpecularTex = false;
-uniform float Specular : hint_range(0, 1) = 0.5;
+uniform float Specular : hint_range(0.0, 1.0) = 0.5;
 uniform bool EnableAOTex = false;
-uniform float AO_LightAffect : hint_range(0, 20) = 0;
+uniform float AO_LightAffect : hint_range(0.0, 20.0) = 0.0;
 uniform sampler2D TexNormal : hint_normal;
-uniform float NormalMapDepth = 1;
+uniform float NormalMapDepth = 1.0;
 
 
 
@@ -277,7 +277,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-324.968, -223.437)
+graph_offset = Vector2(-322.878, -189.817)
 modes/cull = 2
 nodes/vertex/0/position = Vector2(400, 160)
 nodes/fragment/0/position = Vector2(3580, 120)
@@ -312,7 +312,7 @@ nodes/fragment/16/position = Vector2(2020, 1560)
 nodes/fragment/17/node = SubResource("VisualShaderNodeFloatParameter_pwk6e")
 nodes/fragment/17/position = Vector2(2540, 1980)
 nodes/fragment/18/node = SubResource("VisualShaderNodeFloatParameter_noj3c")
-nodes/fragment/18/position = Vector2(2980, 500)
+nodes/fragment/18/position = Vector2(2920, 600)
 nodes/fragment/19/node = SubResource("VisualShaderNodeFloatParameter_tuiva")
 nodes/fragment/19/position = Vector2(1340, 1320)
 nodes/fragment/20/node = SubResource("VisualShaderNodeFloatParameter_0xuyr")

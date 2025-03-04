@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://b21i33lcshyam"]
 
-[ext_resource type="Script" path="res://addons/vs_plugin/utility/flipbook.gd" id="1_ndcg6"]
+[ext_resource type="Script" uid="uid://cps6313bdh0w3" path="res://addons/vs_plugin/utility/flipbook.gd" id="1_ndcg6"]
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_qcb4k"]
 parameter_name = "TexFlipbook"
@@ -190,6 +190,7 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-869.68, -49.4023)
 flags/unshaded = true
 nodes/vertex/0/position = Vector2(240, 180)
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_1qpsm")
