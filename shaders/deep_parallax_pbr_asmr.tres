@@ -135,7 +135,7 @@ default_value_enabled = true
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx;
 
 uniform sampler2D TexHeight;
 uniform sampler2D TexAlbedoTex : source_color;
@@ -371,7 +371,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-667.962, -81.5349)
 modes/cull = 2
 nodes/fragment/0/position = Vector2(3740, 780)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_lvl8w")

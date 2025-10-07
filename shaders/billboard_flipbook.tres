@@ -20,7 +20,7 @@ script = ExtResource("1_ndcg6")
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
 
 uniform sampler2D TexFlipbook : source_color;
 
@@ -190,7 +190,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-869.68, -49.4023)
 flags/unshaded = true
 nodes/vertex/0/position = Vector2(240, 180)
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_1qpsm")

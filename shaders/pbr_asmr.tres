@@ -114,7 +114,7 @@ default_value_enabled = true
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx;
 
 uniform sampler2D TexAlbedoTex : source_color;
 uniform bool EnableMetallicTex = false;
@@ -277,7 +277,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-322.878, -189.817)
 modes/cull = 2
 nodes/vertex/0/position = Vector2(400, 160)
 nodes/fragment/0/position = Vector2(3580, 120)

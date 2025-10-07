@@ -17,7 +17,7 @@ script = ExtResource("2_yc80g")
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform sampler2D DepthTexture;
 uniform sampler2D tex_frg_3 : source_color;
@@ -98,7 +98,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-692.96, 67.9165)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_7sr23")
 nodes/fragment/3/position = Vector2(-9.45013, 184.448)
 nodes/fragment/4/node = SubResource("VisualShaderNodeTexture2DParameter_kvisg")

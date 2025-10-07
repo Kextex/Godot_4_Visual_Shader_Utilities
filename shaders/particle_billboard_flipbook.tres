@@ -43,7 +43,7 @@ script = ExtResource("2_ktn1p")
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled;
 
 
 // Varyings
@@ -261,7 +261,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-331.377, -280.88)
 flags/unshaded = true
 flags/shadows_disabled = true
 varyings/LerpFrameData = "0,4"
