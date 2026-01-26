@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://dp0d8eyj56mu6"]
+[gd_scene format=3 uid="uid://dp0d8eyj56mu6"]
 
 [ext_resource type="Shader" uid="uid://dn22ie4asmsk" path="res://shaders/world_space_shader.gdshader" id="2_dfcks"]
 [ext_resource type="Texture2D" uid="uid://dw1aasqjd0rds" path="res://textures/checker_mask_01.png" id="3_irn7h"]
@@ -152,218 +152,6 @@ default_input_values = [0, false, 1, Vector2(1, 1), 2, Vector2(0, 0)]
 op_type = 3
 
 [sub_resource type="VisualShader" id="VisualShader_wtthp"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx;
-
-uniform vec4 ColorParameter : source_color;
-uniform sampler2D tex_frg_100;
-
-
-// RotateUV
-// Source: https://github.com/arkology/ShaderV
-
-
-vec2 r0tateUVFunc(vec2 _uv_r0tate, vec2 _pivot_r0tate, float _r0tation_r0tate) {
-	// float _r0tation_r0tate = radians(_r0tationDeg_r0tate);
-	vec2 _r0tAngle = vec2(cos(_r0tation_r0tate), sin(_r0tation_r0tate));
-	_uv_r0tate.xy -= _pivot_r0tate;
-	_uv_r0tate.xy = vec2((_uv_r0tate.x*_r0tAngle.x-_uv_r0tate.y*_r0tAngle.y),(_uv_r0tate.x*_r0tAngle.y+_uv_r0tate.y*_r0tAngle.x));
-	_uv_r0tate.xy += _pivot_r0tate;
-	return _uv_r0tate;
-	}
-
-void fragment() {
-// ColorParameter:113
-	vec4 n_out113p0 = ColorParameter;
-
-
-// FloatConstant:106
-	float n_out106p0 = 0.500000;
-
-
-// VectorOp:105
-	vec4 n_out105p0 = n_out113p0 * vec4(n_out106p0);
-
-
-// Input:47
-	mat4 n_out47p0 = INV_VIEW_MATRIX;
-
-
-// Input:48
-	vec3 n_out48p0 = NORMAL;
-
-
-// TransformVectorMult:49
-	vec3 n_out49p0 = (n_out47p0 * vec4(n_out48p0, 0.0)).xyz;
-
-
-// VectorDecompose:71
-	float n_out71p0 = n_out49p0.x;
-	float n_out71p1 = n_out49p0.y;
-	float n_out71p2 = n_out49p0.z;
-
-
-// Compare:79
-	float n_in79p1 = 0.00000;
-	bool n_out79p0 = n_out71p2 > n_in79p1;
-
-
-// Input:61
-	mat4 n_out61p0 = INV_VIEW_MATRIX;
-
-
-// Input:60
-	vec3 n_out60p0 = VERTEX;
-
-
-// TransformVectorMult:53
-	vec3 n_out53p0 = (n_out61p0 * vec4(n_out60p0, 1.0)).xyz;
-
-
-// VectorDecompose:45
-	float n_out45p0 = n_out53p0.x;
-	float n_out45p1 = n_out53p0.y;
-	float n_out45p2 = n_out53p0.z;
-
-
-// FloatFunc:78
-	float n_out78p0 = 1.0 - n_out45p0;
-
-
-// VectorCompose:77
-	vec2 n_out77p0 = vec2(n_out78p0, n_out45p1);
-
-
-// VectorCompose:46
-	vec2 n_out46p0 = vec2(n_out45p0, n_out45p1);
-
-
-	vec2 n_out80p0;
-// Switch:80
-	n_out80p0 = mix(n_out46p0, n_out77p0, float(n_out79p0));
-
-
-// Compare:72
-	float n_in72p1 = 0.00000;
-	bool n_out72p0 = n_out71p0 > n_in72p1;
-
-
-// VectorDecompose:54
-	float n_out54p0 = n_out53p0.x;
-	float n_out54p1 = n_out53p0.y;
-	float n_out54p2 = n_out53p0.z;
-
-
-// VectorCompose:55
-	vec2 n_out55p0 = vec2(n_out54p2, n_out54p1);
-
-
-// FloatFunc:75
-	float n_out75p0 = 1.0 - n_out54p2;
-
-
-// VectorCompose:74
-	vec2 n_out74p0 = vec2(n_out75p0, n_out54p1);
-
-
-	vec2 n_out73p0;
-// Switch:73
-	n_out73p0 = mix(n_out74p0, n_out55p0, float(n_out72p0));
-
-
-// VectorFunc:56
-	vec3 n_out56p0 = abs(n_out49p0);
-
-
-// VectorFunc:57
-	vec3 n_out57p0 = round(n_out56p0);
-
-
-// VectorDecompose:58
-	float n_out58p0 = n_out57p0.x;
-	float n_out58p1 = n_out57p0.y;
-	float n_out58p2 = n_out57p0.z;
-
-
-// Mix:59
-	vec2 n_out59p0 = mix(n_out80p0, n_out73p0, n_out58p0);
-
-
-	vec2 n_out112p0;
-// RotateUV:112
-	float n_in112p1 = 180.00000;
-	vec2 n_in112p2 = vec2(0.50000, 0.50000);
-	{
-		n_out112p0 = r0tateUVFunc(n_out59p0.xy, n_in112p2.xy, n_in112p1);
-	}
-
-
-// Compare:67
-	float n_in67p1 = 0.00000;
-	bool n_out67p0 = n_out71p1 > n_in67p1;
-
-
-// VectorDecompose:64
-	float n_out64p0 = n_out53p0.x;
-	float n_out64p1 = n_out53p0.y;
-	float n_out64p2 = n_out53p0.z;
-
-
-// VectorCompose:65
-	vec2 n_out65p0 = vec2(n_out64p0, n_out64p2);
-
-
-// FloatFunc:70
-	float n_out70p0 = 1.0 - n_out64p0;
-
-
-// VectorCompose:69
-	vec2 n_out69p0 = vec2(n_out70p0, n_out64p2);
-
-
-	vec2 n_out66p0;
-// Switch:66
-	n_out66p0 = mix(n_out69p0, n_out65p0, float(n_out67p0));
-
-
-// Mix:62
-	vec2 n_out62p0 = mix(n_out112p0, n_out66p0, n_out58p1);
-
-
-// Texture2D:100
-	vec4 n_out100p0 = texture(tex_frg_100, n_out62p0);
-	float n_out100p1 = n_out100p0.r;
-	float n_out100p2 = n_out100p0.g;
-	float n_out100p3 = n_out100p0.b;
-	float n_out100p4 = n_out100p0.a;
-
-
-// Mix:101
-	vec3 n_out101p0 = mix(vec3(n_out113p0.xyz), vec3(n_out105p0.xyz), n_out100p1);
-
-
-// VectorOp:107
-	vec4 n_out107p0 = n_out105p0 * vec4(n_out106p0);
-
-
-// Mix:102
-	vec3 n_out102p0 = mix(n_out101p0, vec3(n_out107p0.xyz), n_out100p2);
-
-
-// Mix:103
-	vec3 n_out103p0 = mix(n_out102p0, vec3(n_out107p0.xyz), n_out100p3);
-
-
-// Mix:104
-	vec3 n_out104p0 = mix(n_out103p0, vec3(n_out107p0.xyz), n_out100p4);
-
-
-// Output:0
-	ALBEDO = n_out104p0;
-
-
-}
-"
 modes/cull = 2
 nodes/fragment/0/position = Vector2(4460, 2940)
 nodes/fragment/45/node = SubResource("VisualShaderNodeVectorDecompose_7mlbp")
@@ -587,218 +375,6 @@ default_input_values = [0, false, 1, Vector2(1, 1), 2, Vector2(0, 0)]
 op_type = 3
 
 [sub_resource type="VisualShader" id="VisualShader_ku60c"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx;
-
-uniform vec4 ColorParameter : source_color;
-uniform sampler2D tex_frg_100;
-
-
-// RotateUV
-// Source: https://github.com/arkology/ShaderV
-
-
-vec2 r0tateUVFunc(vec2 _uv_r0tate, vec2 _pivot_r0tate, float _r0tation_r0tate) {
-	// float _r0tation_r0tate = radians(_r0tationDeg_r0tate);
-	vec2 _r0tAngle = vec2(cos(_r0tation_r0tate), sin(_r0tation_r0tate));
-	_uv_r0tate.xy -= _pivot_r0tate;
-	_uv_r0tate.xy = vec2((_uv_r0tate.x*_r0tAngle.x-_uv_r0tate.y*_r0tAngle.y),(_uv_r0tate.x*_r0tAngle.y+_uv_r0tate.y*_r0tAngle.x));
-	_uv_r0tate.xy += _pivot_r0tate;
-	return _uv_r0tate;
-	}
-
-void fragment() {
-// ColorParameter:113
-	vec4 n_out113p0 = ColorParameter;
-
-
-// FloatConstant:106
-	float n_out106p0 = 0.500000;
-
-
-// VectorOp:105
-	vec4 n_out105p0 = n_out113p0 * vec4(n_out106p0);
-
-
-// Input:47
-	mat4 n_out47p0 = INV_VIEW_MATRIX;
-
-
-// Input:48
-	vec3 n_out48p0 = NORMAL;
-
-
-// TransformVectorMult:49
-	vec3 n_out49p0 = (n_out47p0 * vec4(n_out48p0, 0.0)).xyz;
-
-
-// VectorDecompose:71
-	float n_out71p0 = n_out49p0.x;
-	float n_out71p1 = n_out49p0.y;
-	float n_out71p2 = n_out49p0.z;
-
-
-// Compare:79
-	float n_in79p1 = 0.00000;
-	bool n_out79p0 = n_out71p2 > n_in79p1;
-
-
-// Input:61
-	mat4 n_out61p0 = INV_VIEW_MATRIX;
-
-
-// Input:60
-	vec3 n_out60p0 = VERTEX;
-
-
-// TransformVectorMult:53
-	vec3 n_out53p0 = (n_out61p0 * vec4(n_out60p0, 1.0)).xyz;
-
-
-// VectorDecompose:45
-	float n_out45p0 = n_out53p0.x;
-	float n_out45p1 = n_out53p0.y;
-	float n_out45p2 = n_out53p0.z;
-
-
-// FloatFunc:78
-	float n_out78p0 = 1.0 - n_out45p0;
-
-
-// VectorCompose:77
-	vec2 n_out77p0 = vec2(n_out78p0, n_out45p1);
-
-
-// VectorCompose:46
-	vec2 n_out46p0 = vec2(n_out45p0, n_out45p1);
-
-
-	vec2 n_out80p0;
-// Switch:80
-	n_out80p0 = mix(n_out46p0, n_out77p0, float(n_out79p0));
-
-
-// Compare:72
-	float n_in72p1 = 0.00000;
-	bool n_out72p0 = n_out71p0 > n_in72p1;
-
-
-// VectorDecompose:54
-	float n_out54p0 = n_out53p0.x;
-	float n_out54p1 = n_out53p0.y;
-	float n_out54p2 = n_out53p0.z;
-
-
-// VectorCompose:55
-	vec2 n_out55p0 = vec2(n_out54p2, n_out54p1);
-
-
-// FloatFunc:75
-	float n_out75p0 = 1.0 - n_out54p2;
-
-
-// VectorCompose:74
-	vec2 n_out74p0 = vec2(n_out75p0, n_out54p1);
-
-
-	vec2 n_out73p0;
-// Switch:73
-	n_out73p0 = mix(n_out74p0, n_out55p0, float(n_out72p0));
-
-
-// VectorFunc:56
-	vec3 n_out56p0 = abs(n_out49p0);
-
-
-// VectorFunc:57
-	vec3 n_out57p0 = round(n_out56p0);
-
-
-// VectorDecompose:58
-	float n_out58p0 = n_out57p0.x;
-	float n_out58p1 = n_out57p0.y;
-	float n_out58p2 = n_out57p0.z;
-
-
-// Mix:59
-	vec2 n_out59p0 = mix(n_out80p0, n_out73p0, n_out58p0);
-
-
-	vec2 n_out112p0;
-// RotateUV:112
-	float n_in112p1 = 180.00000;
-	vec2 n_in112p2 = vec2(0.50000, 0.50000);
-	{
-		n_out112p0 = r0tateUVFunc(n_out59p0.xy, n_in112p2.xy, n_in112p1);
-	}
-
-
-// Compare:67
-	float n_in67p1 = 0.00000;
-	bool n_out67p0 = n_out71p1 > n_in67p1;
-
-
-// VectorDecompose:64
-	float n_out64p0 = n_out53p0.x;
-	float n_out64p1 = n_out53p0.y;
-	float n_out64p2 = n_out53p0.z;
-
-
-// VectorCompose:65
-	vec2 n_out65p0 = vec2(n_out64p0, n_out64p2);
-
-
-// FloatFunc:70
-	float n_out70p0 = 1.0 - n_out64p0;
-
-
-// VectorCompose:69
-	vec2 n_out69p0 = vec2(n_out70p0, n_out64p2);
-
-
-	vec2 n_out66p0;
-// Switch:66
-	n_out66p0 = mix(n_out69p0, n_out65p0, float(n_out67p0));
-
-
-// Mix:62
-	vec2 n_out62p0 = mix(n_out112p0, n_out66p0, n_out58p1);
-
-
-// Texture2D:100
-	vec4 n_out100p0 = texture(tex_frg_100, n_out62p0);
-	float n_out100p1 = n_out100p0.r;
-	float n_out100p2 = n_out100p0.g;
-	float n_out100p3 = n_out100p0.b;
-	float n_out100p4 = n_out100p0.a;
-
-
-// Mix:101
-	vec3 n_out101p0 = mix(vec3(n_out113p0.xyz), vec3(n_out105p0.xyz), n_out100p1);
-
-
-// VectorOp:107
-	vec4 n_out107p0 = n_out105p0 * vec4(n_out106p0);
-
-
-// Mix:102
-	vec3 n_out102p0 = mix(n_out101p0, vec3(n_out107p0.xyz), n_out100p2);
-
-
-// Mix:103
-	vec3 n_out103p0 = mix(n_out102p0, vec3(n_out107p0.xyz), n_out100p3);
-
-
-// Mix:104
-	vec3 n_out104p0 = mix(n_out103p0, vec3(n_out107p0.xyz), n_out100p4);
-
-
-// Output:0
-	ALBEDO = n_out104p0;
-
-
-}
-"
 modes/cull = 2
 nodes/fragment/0/position = Vector2(4460, 2940)
 nodes/fragment/45/node = SubResource("VisualShaderNodeVectorDecompose_guoo0")
@@ -948,44 +524,44 @@ shader = ExtResource("2_dfcks")
 shader_parameter/checker_tex = ExtResource("3_irn7h")
 shader_parameter/color = Color(0, 0.803922, 0.65098, 1)
 
-[node name="Node" type="Node"]
+[node name="Node" type="Node" unique_id=1663683188]
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1512349715]
 transform = Transform3D(0.928901, 0.18973, 0.318034, -0.1795, 0.981836, -0.0614567, -0.323917, 0, 0.946085, -0.000109673, 2.83805, -2.52664)
 size = Vector3(3.579, 8.59, 3.784)
 material = SubResource("ShaderMaterial_0bwn8")
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="CSGBox3D2"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGBox3D2" unique_id=551009499]
 transform = Transform3D(0.999999, 5.88986e-08, 1.78814e-07, 7.32991e-08, 0.999999, 4.82279e-08, -1.49012e-07, -2.65593e-08, 0.999999, 0.494731, 0.926789, 1.09482)
 operation = 2
 size = Vector3(3.579, 6.105, 3.784)
 material = SubResource("ShaderMaterial_jm3cp")
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="CSGBox3D2"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGBox3D2" unique_id=424165003]
 transform = Transform3D(0.999999, 1.01155e-07, 1.78814e-07, 1.03101e-07, 0.999998, 1.00382e-07, -3.8743e-07, -5.54852e-08, 0.999999, 1.45687, 1.01395, -0.608924)
 operation = 2
 size = Vector3(3.579, 2.585, 3.784)
 material = SubResource("ShaderMaterial_jm3cp")
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=1206067778]
 transform = Transform3D(-0.205873, 0.253183, -0.945259, 0.36938, 0.914599, 0.164522, 0.906187, -0.315289, -0.281812, 1.63815, 0.296464, -2.03505)
 radius = 0.760626
 height = 3.54934
 material = SubResource("ShaderMaterial_b0fhn")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1192711172]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00116444, -2.73254, 0.014468)
 size = Vector3(24.7653, 5.83697, 23.6098)
 material = SubResource("ShaderMaterial_5ewvp")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1518563100]
 environment = ExtResource("5_xchoy")
 camera_attributes = ExtResource("6_h436l")
 
-[node name="Day" type="Node3D" parent="."]
+[node name="Day" type="Node3D" parent="." unique_id=519042257]
 transform = Transform3D(-0.700128, -0.443347, -0.5597, -0.10583, -0.710783, 0.695405, -0.706131, 0.546105, 0.45072, -3.72865, 30.4558, -7.69957)
 
-[node name="Sun" type="DirectionalLight3D" parent="Day"]
+[node name="Sun" type="DirectionalLight3D" parent="Day" unique_id=1303767535]
 transform = Transform3D(-0.898401, 0.417118, 0.137435, -0.12828, 0.0500553, -0.990474, -0.420024, -0.907472, 0.00853783, 2.21636, 14.9593, -15.5699)
 light_intensity_lux = 60551.9
 light_energy = 0.411
@@ -999,10 +575,10 @@ shadow_blur = 1.122
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 60.0
 
-[node name="Night" type="Node3D" parent="."]
+[node name="Night" type="Node3D" parent="." unique_id=424004459]
 visible = false
 
-[node name="Sun" type="DirectionalLight3D" parent="Night"]
+[node name="Sun" type="DirectionalLight3D" parent="Night" unique_id=1032892764]
 transform = Transform3D(-0.226634, -0.0839426, -0.970356, -0.297312, -0.942765, 0.150995, -0.927493, 0.322719, 0.188705, -3.72865, 30.4558, -7.69957)
 visible = false
 light_energy = 0.0
@@ -1021,90 +597,90 @@ directional_shadow_fade_start = 0.773
 directional_shadow_max_distance = 80.3
 directional_shadow_pancake_size = 49.7
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1232405177]
 transform = Transform3D(-0.598214, -0.0340604, -0.800612, -0.792936, -0.119123, 0.597547, -0.115724, 0.992295, 0.0442533, -9.03143, 10.1434, -1.24256)
 light_energy = 2.426
 spot_range = 13.3225
 spot_angle = 26.633
 
-[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+[node name="SpotLight3D2" type="SpotLight3D" parent="." unique_id=1298216749]
 transform = Transform3D(0.562469, -0.0696424, -0.82388, 0.826576, 0.0715003, 0.558266, 0.0200287, -0.995006, 0.0977814, -10.8229, 4.56683, 0.0197792)
 visible = false
 light_energy = 0.145
 spot_range = 47.754
 spot_angle = 73.28
 
-[node name="SpotLight3D3" type="SpotLight3D" parent="."]
+[node name="SpotLight3D3" type="SpotLight3D" parent="." unique_id=2137033847]
 transform = Transform3D(0.124611, -0.99053, -0.0576367, 0.853709, 0.0774342, 0.51496, -0.505621, -0.113375, 0.855274, -0.367501, 7.64519, 15.8267)
 visible = false
 light_energy = 4.703
 spot_range = 27.691
 spot_angle = 73.28
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=655655405]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.27477, -0.788661, 2.40748)
 radius = 1.80972
 radial_segments = 14
 rings = 8
 material = SubResource("ShaderMaterial_feown")
 
-[node name="CSGSphere3D10" type="CSGSphere3D" parent="."]
+[node name="CSGSphere3D10" type="CSGSphere3D" parent="." unique_id=139377217]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.87781, -1.03204, -2.27984)
 radius = 1.80972
 radial_segments = 14
 rings = 8
 material = SubResource("ShaderMaterial_r6ytn")
 
-[node name="CSGSphere3D9" type="CSGSphere3D" parent="."]
+[node name="CSGSphere3D9" type="CSGSphere3D" parent="." unique_id=1849453991]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45772, -0.157676, 0.949114)
 radius = 1.80972
 radial_segments = 14
 rings = 8
 material = SubResource("ShaderMaterial_2urp5")
 
-[node name="CSGSphere3D5" type="CSGSphere3D" parent="."]
+[node name="CSGSphere3D5" type="CSGSphere3D" parent="." unique_id=586626640]
 transform = Transform3D(0.283363, 0, 0.959013, 0, 1, 0, -0.959013, 0, 0.283363, 3.69414, 1.44366, -0.00667095)
 radius = 0.538275
 radial_segments = 14
 rings = 8
 material = SubResource("ShaderMaterial_y7p47")
 
-[node name="CSGSphere3D2" type="CSGSphere3D" parent="."]
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="." unique_id=991815545]
 transform = Transform3D(0.283363, 0, 0.959013, 0, 1, 0, -0.959013, 0, 0.283363, 5.43389, 0.244464, 1.41786)
 radius = 0.538275
 radial_segments = 14
 rings = 8
 material = SubResource("ShaderMaterial_oslim")
 
-[node name="CSGSphere3D4" type="CSGSphere3D" parent="."]
+[node name="CSGSphere3D4" type="CSGSphere3D" parent="." unique_id=721938027]
 transform = Transform3D(0.283363, 0, 0.959013, 0, 1, 0, -0.959013, 0, 0.283363, 5.43389, 0.244464, -1.501)
 radius = 0.538275
 radial_segments = 14
 rings = 8
 material = SubResource("ShaderMaterial_6pwgt")
 
-[node name="CSGSphere3D3" type="CSGSphere3D" parent="."]
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="." unique_id=1720559686]
 transform = Transform3D(0.283363, 0, 0.959013, 0, 1, 0, -0.959013, 0, 0.283363, 5.86268, 0.244464, -0.00667095)
 radius = 0.538275
 radial_segments = 14
 rings = 8
 material = SubResource("ShaderMaterial_a2n0o")
 
-[node name="CSGSphere3D6" type="CSGSphere3D" parent="."]
+[node name="CSGSphere3D6" type="CSGSphere3D" parent="." unique_id=693373820]
 transform = Transform3D(0.283363, 0, 0.959013, 0, 1, 0, -0.959013, 0, 0.283363, 4.20991, 0.574862, 1.11913)
 radius = 0.538275
 radial_segments = 14
 rings = 8
 material = SubResource("ShaderMaterial_gsh3y")
 
-[node name="CSGSphere3D7" type="CSGSphere3D" parent="."]
+[node name="CSGSphere3D7" type="CSGSphere3D" parent="." unique_id=142296351]
 transform = Transform3D(0.283363, 0, 0.959013, 0, 1, 0, -0.959013, 0, 0.283363, 4.21781, 0.574862, -1.1983)
 radius = 0.538275
 radial_segments = 14
 rings = 8
 material = SubResource("ShaderMaterial_132j5")
 
-[node name="CSGSphere3D8" type="CSGSphere3D" parent="."]
+[node name="CSGSphere3D8" type="CSGSphere3D" parent="." unique_id=2128815623]
 transform = Transform3D(0.283363, 0, 0.959013, 0, 1, 0, -0.959013, 0, 0.283363, 4.71718, 0.574862, -0.00667095)
 radius = 0.538275
 radial_segments = 14
