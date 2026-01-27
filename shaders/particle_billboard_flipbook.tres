@@ -42,6 +42,7 @@ initialized = true
 script = ExtResource("2_ktn1p")
 
 [resource]
+modes/diffuse = 2
 flags/unshaded = true
 flags/shadows_disabled = true
 varyings/LerpFrameData = "0,4"

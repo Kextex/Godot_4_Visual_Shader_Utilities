@@ -114,6 +114,7 @@ default_value_enabled = true
 
 [resource]
 modes/cull = 2
+modes/diffuse = 2
 nodes/vertex/0/position = Vector2(400, 160)
 nodes/fragment/0/position = Vector2(3580, 120)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_24elc")

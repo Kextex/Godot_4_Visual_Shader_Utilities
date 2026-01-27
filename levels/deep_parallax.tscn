@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://btdlku4nxpsvj"]
+[gd_scene format=3 uid="uid://btdlku4nxpsvj"]
 
 [ext_resource type="Shader" uid="uid://77e5aydepnnk" path="res://shaders/deep_parallax_pbr_asmr.tres" id="1_q8ngv"]
 [ext_resource type="Texture2D" uid="uid://t4srbjetck1o" path="res://textures/texture_rock_asmr.png" id="2_u1mgn"]
@@ -60,29 +60,29 @@ shader_parameter/heightmap_scale = 14.47
 shader_parameter/_depth_flip = Vector2(1, 1)
 shader_parameter/flip_heightmap = false
 
-[node name="Node" type="Node"]
+[node name="Node" type="Node" unique_id=1047389000]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1716976512]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.9175, -0.130764, 0.0150617, 0.0193108)
 material = SubResource("ShaderMaterial_k5gvq")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=709734453]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.9175, -1.25644, 0.0150617, 0.0193108)
 material = SubResource("StandardMaterial3D_yeqb6")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=328462438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08021, 0.00286293, -0.00133133)
 material = SubResource("ShaderMaterial_b2aja")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=826835163]
 environment = ExtResource("6_dnx2p")
 camera_attributes = ExtResource("7_7q7ap")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2117839777]
 transform = Transform3D(0.132435, 0.919505, -0.370097, 0.587085, 0.228074, 0.776733, 0.798619, -0.320145, -0.509623, -0.333615, 1.14747, -1.36907)
 light_energy = 0.311
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1943813581]
 transform = Transform3D(0.88747, -0.175525, -0.426132, 0.0547858, 0.958257, -0.280611, 0.457598, 0.225688, 0.86004, -1.67381, -1.09998, 2.84088)
 visible = false
 light_intensity_lumens = 68769.7

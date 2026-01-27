@@ -16,6 +16,7 @@ initialized = true
 script = ExtResource("2_yc80g")
 
 [resource]
+modes/diffuse = 2
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_7sr23")
 nodes/fragment/3/position = Vector2(-9.45013, 184.448)
 nodes/fragment/4/node = SubResource("VisualShaderNodeTexture2DParameter_kvisg")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dvykiy54tioid"]
+[gd_scene format=3 uid="uid://dvykiy54tioid"]
 
 [ext_resource type="Material" uid="uid://b8jn4adckw2c8" path="res://materials/m_billboard_flipbook.material" id="1_vpaq8"]
 [ext_resource type="Shader" uid="uid://b21i33lcshyam" path="res://shaders/billboard_flipbook.tres" id="2_aoxn1"]
@@ -197,31 +197,31 @@ shader_parameter/uv2_offset = Vector3(0, 0, 0)
 material = SubResource("ShaderMaterial_cj64r")
 orientation = 2
 
-[node name="Node" type="Node"]
+[node name="Node" type="Node" unique_id=1116899445]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=203088855]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81055, 2.94629, 0)
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_qk5d8")
 
-[node name="Label3D2" type="Label3D" parent="MeshInstance3D"]
+[node name="Label3D2" type="Label3D" parent="MeshInstance3D" unique_id=1215849468]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.161952, 2.92291, 0)
 pixel_size = 0.0155
 text = "Flipbook"
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=405581561]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.76163, 2.56204, 0)
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_addyq")
 
-[node name="Label3D2" type="Label3D" parent="MeshInstance3D2"]
+[node name="Label3D2" type="Label3D" parent="MeshInstance3D2" unique_id=2122329681]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.161952, 2.92291, 0)
 pixel_size = 0.0155
 text = "Flipbook Smoke
 
 "
 
-[node name="GPUParticles3D3" type="GPUParticles3D" parent="."]
+[node name="GPUParticles3D3" type="GPUParticles3D" parent="." unique_id=585599764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.14778, 2.70106, 9.53674e-07)
 amount = 4
 lifetime = 2.28
@@ -229,13 +229,13 @@ transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_tfjk8")
 draw_pass_1 = SubResource("PlaneMesh_0e4an")
 
-[node name="Label3D" type="Label3D" parent="GPUParticles3D3"]
+[node name="Label3D" type="Label3D" parent="GPUParticles3D3" unique_id=1856615374]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92912, 0)
 pixel_size = 0.0155
 text = "Flipbook Smoke
 GPU Particle"
 
-[node name="GPUParticles3D6" type="GPUParticles3D" parent="."]
+[node name="GPUParticles3D6" type="GPUParticles3D" parent="." unique_id=2019430095]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3408, 3.71828, -0.0243354)
 amount = 1
 lifetime = 2.28
@@ -243,17 +243,17 @@ transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_4dvsk")
 draw_pass_1 = SubResource("PlaneMesh_27ou1")
 
-[node name="Label3D" type="Label3D" parent="GPUParticles3D6"]
+[node name="Label3D" type="Label3D" parent="GPUParticles3D6" unique_id=1777741041]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92912, 0)
 pixel_size = 0.0155
 text = "Flipbook Explosion
 GPU Paricle
 Flowmap"
 
-[node name="Comparison" type="Node3D" parent="."]
+[node name="Comparison" type="Node3D" parent="." unique_id=113997145]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.3412, 6.93771, 0)
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Comparison"]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Comparison" unique_id=2099130504]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1874, -2.98026, 0)
 lifetime = 1.96
 speed_scale = 0.15
@@ -261,13 +261,13 @@ transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_liykb")
 draw_pass_1 = SubResource("PlaneMesh_ir57w")
 
-[node name="Label3D" type="Label3D" parent="Comparison/GPUParticles3D"]
+[node name="Label3D" type="Label3D" parent="Comparison/GPUParticles3D" unique_id=190777867]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92912, 0)
 pixel_size = 0.0155
 text = "Flipbook
 Visual Shader"
 
-[node name="GPUParticles3D2" type="GPUParticles3D" parent="Comparison"]
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="Comparison" unique_id=458385845]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.06002, -2.98026, 0)
 cast_shadow = 0
 lifetime = 1.96
@@ -276,12 +276,12 @@ transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_liykb")
 draw_pass_1 = SubResource("PlaneMesh_uph8u")
 
-[node name="Label3D2" type="Label3D" parent="Comparison/GPUParticles3D2"]
+[node name="Label3D2" type="Label3D" parent="Comparison/GPUParticles3D2" unique_id=672183762]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0399742, 2.92291, 0)
 pixel_size = 0.0155
 text = "Standard Material"
 
-[node name="Label3D" type="Label3D" parent="Comparison"]
+[node name="Label3D" type="Label3D" parent="Comparison" unique_id=744370802]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.673393, 1.45495, 0)
 pixel_size = 0.0155
 text = "Camparison"

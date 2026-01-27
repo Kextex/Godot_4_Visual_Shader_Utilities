@@ -135,6 +135,7 @@ default_value_enabled = true
 
 [resource]
 modes/cull = 2
+modes/diffuse = 2
 nodes/fragment/0/position = Vector2(3740, 780)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_lvl8w")
 nodes/fragment/3/position = Vector2(1080, 1840)
