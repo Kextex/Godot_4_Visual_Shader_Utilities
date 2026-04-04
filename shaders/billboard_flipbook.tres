@@ -19,7 +19,6 @@ initialized = true
 script = ExtResource("1_ndcg6")
 
 [resource]
-modes/diffuse = 2
 flags/unshaded = true
 nodes/vertex/0/position = Vector2(240, 180)
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_1qpsm")

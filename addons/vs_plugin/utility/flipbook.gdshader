@@ -22,7 +22,6 @@ uniform bool _particle_anim = true;
 uniform int _number_of_columns = 3;
 uniform int _number_of_rows = 3;
 
-
 void fLiPBook(vec2 _i_uv, float _playback_rate, vec4 _instance_custom, float _time, out vec2 _result_uv, out vec3 _lerpframe_data) {
 	float total_frames = float(_number_of_columns * _number_of_rows);
 	float h_frames = float(_number_of_columns);
